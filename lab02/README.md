@@ -76,8 +76,8 @@
 #### S1(config-if-range)#no shut
 ### Шаг 4: Отобразите данные протокола spanning-tree.
 ###### S1#show spann
-![](S1#show_spann.PNG)
+![](S1_show_spann.PNG)
 ###### S2#show spann
-![](S2#show_spann.PNG)
+![](S2_show_spann.PNG)
 ###### S3#show spann
-![](S3#show_spann.PNG)
+![](S3_show_spann.PNG)
