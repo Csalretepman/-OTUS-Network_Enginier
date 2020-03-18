@@ -53,3 +53,81 @@
 ##### S1(config)#exit
 ##### S1# copy running-config startup-config
 
+#### Шаг 4: Проверить связь.
+###### Проверьте способность компьютеров обмениваться эхо-запросами.
+###### Успешно ли выполняется эхо-запрос от коммутатора S1 на коммутатор S2?
+###### Успешно ли выполняется эхо-запрос от коммутатора S1 на коммутатор S3?
+###### Успешно ли выполняется эхо-запрос от коммутатора S2 на коммутатор S3?
+##### Все эхо-запрсы выполнились успешно
+
+
+## Часть 2. Выбор корневого моста
+
+### Шаг 1. Отключите все порты на коммутаторах.
+#### S1#conf t
+#### S1(config)#int range f0/1-24
+#### S1(config-if-range)#shutdown
+### Шаг 2: Настройте подключенные порты в качестве транковых.
+#### S1(config)#int range f0/1-24
+#### S1(config-if-range)#switchport mode trunk
+### Шаг 3: Включите порты F0/2 и F0/4 на всех коммутаторах.
+#### S1#conf
+#### S1(config)#int range f0/2,f0/4
+#### S1(config-if-range)#no shut
+### Шаг 4: Отобразите данные протокола spanning-tree.
+###### S1#show spann
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     0001.6300.5EA0
+             Cost        19
+             Port        4(FastEthernet0/4)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     0003.E4E0.0A76
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Fa0/2            Desg FWD 19        128.2    P2p
+Fa0/4            Root FWD 19        128.4    P2p
+
+###### S2#show spann
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     0001.6300.5EA0
+             Cost        19
+             Port        4(FastEthernet0/4)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     0006.2A8B.A362
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Fa0/2            Altn BLK 19        128.2    P2p
+Fa0/4            Root FWD 19        128.4    P2p
+
+###### S3#show spann
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     0001.6300.5EA0
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     0001.6300.5EA0
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Fa0/2            Desg FWD 19        128.2    P2p
+Fa0/4            Desg FWD 19        128.4    P2p
+
