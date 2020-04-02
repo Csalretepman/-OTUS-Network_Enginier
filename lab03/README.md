@@ -354,7 +354,7 @@ Fa0/5            Desg FWD 19        128.5    P2p
 ```
 </details>
 
-<details>
+details>
  <summary>S3</summary>
 ``` bash
 S3#show interfaces trunk 
