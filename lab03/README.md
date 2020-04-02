@@ -51,7 +51,39 @@ S1(config-line)#logging synchronous
 S1(config-line)#exit
 S1(config)#int range f0/1-4,f0/6-24
 S1(config-if-range)#shut
+S1(config)#no logging console
+S1(config)#vtp mode transparent
+S1(config)#vlan 99
+S1(config-vlan)#name Management
+S1(config-vlan)#vlan 10
+S1(config-vlan)#name Staff
+S1(config-vlan)#exit
+S1(config)#int f0/5
+S1(config-if)#switchport mode access
+S1(config-if)#switchport access vlan 10
+S1(config-if)#exit
+S1(config)#int vlan 99
+S1(config-if)#ip address 192.168.99.11 255.255.255.0
+S1(config-if)#exit
 S1(config)#exit
 S1#copy running-config startup-config
+```
+</details>
+S2 и S3 настраиваются также, за исключением:
+
+<details>
+ <summary>S2</summary>
+
+``` bash
+Switch(config)#hostname S2
+S1(config-if)#ip address 192.168.99.12 255.255.255.0
+```
+</details>
+<details>
+ <summary>S3</summary>
+
+``` bash
+Switch(config)#hostname S3
+S1(config-if)#ip address 192.168.99.13 255.255.255.0
 ```
 </details>
