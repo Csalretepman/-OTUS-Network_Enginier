@@ -184,8 +184,29 @@ Operational Mode: static access (member of bundle Po1)
 </details>
 
 ##### Убедиться, что порты объединены
+<details>
+ <summary>Проверка объединения портов в EtherChannel S1:</summary>
 
+``` bash
+S1#show etherchannel summary
 
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+----------------------------------------------
 
+1      Po1(SU)           PAgP   Fa0/3(P) Fa0/4(P)
+```
+</details>
+<details>
+ <summary>Проверка объединения портов в EtherChannel на S3:</summary>
+
+``` bash
+S3#show etherchannel summary
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+----------------------------------------------
+
+1      Po1(SU)           PAgP   Fa0/3(P) Fa0/4(P) 
+```
+</details>
 
 
