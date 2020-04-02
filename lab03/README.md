@@ -112,7 +112,7 @@ S1(config-if-range)#no shutdown
 
 ``` bash
 S1#conf t
-S1(config)#interface range f0/1-2
+S1(config)#interface range f0/3-4
 S1(config-if-range)#channel-group 1 mode auto
 Creating a port-channel interface Port-channel 1
 
@@ -120,7 +120,7 @@ S1(config-if-range)#no shutdown
 ```
 </details>
 
-##### Проверить конфигурации на портах.
+##### Проверить конфигурации на портах
 
 <details>
  <summary>S1</summary>
@@ -159,27 +159,33 @@ Operational Mode: static access (member of bundle Po1)
  <summary>S3</summary>
 
 ``` bash
-S3#sh run interface f0/1
+S3#sh run interface f0/3
 interface Ethernet0/1
  channel-group 1 mode auto
 ```
 
 ``` bash
-S3#sh run interface f0/2
+S3#sh run interface f0/4
 interface Ethernet0/2
  channel-group 1 mode auto
 ```
 
 ``` bash
-S3#sh int f0/1 switch
+S3#sh int f0/3 switch
 Administrative Mode: dynamic auto
 Operational Mode: static access (member of bundle Po1)
 ```
 
 ``` bash
-S3#sh int f0/2 switch
+S3#sh int f0/4 switch
 Administrative Mode: dynamic auto
 Operational Mode: static access (member of bundle Po1)
 ```
 </details>
+
+##### Убедиться, что порты объединены
+
+
+
+
 
