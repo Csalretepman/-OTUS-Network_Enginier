@@ -68,6 +68,7 @@ S1(config-if)#exit
 S1(config)#exit
 S1#copy running-config startup-config
 ```
+
 </details>
 S2 и S3 настраиваются также, за исключением:
 
