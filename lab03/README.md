@@ -269,6 +269,7 @@ Pruning VLANs Enabled: 2-1001
 </details>
 <details>
  <summary>S3</summary>
+ 
 ``` bash
 S3# sh run interface Po1
 
