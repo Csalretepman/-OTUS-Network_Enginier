@@ -227,10 +227,12 @@ S1(config-if)# switchport trunk native vlan 99
 </details>
 <details>
  <summary>S3:</summary>
+ 
 ``` bash
 S1(config)# interface port-channel 1
 S1(config-if)# switchport mode trunk
 S1(config-if)# switchport trunk native vlan 99
 ```
+
 </details>
 
