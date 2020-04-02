@@ -196,6 +196,7 @@ Group  Port-channel  Protocol    Ports
 1      Po1(SU)           PAgP   Fa0/3(P) Fa0/4(P)
 ```
 </details>
+
 <details>
  <summary>Проверка объединения портов в EtherChannel S3:</summary>
 
@@ -214,11 +215,13 @@ Group  Port-channel  Protocol    Ports
 </details>
 <details>
  <summary>S1:</summary>
+ 
 ``` bash
 S1(config)# interface port-channel 1
 S1(config-if)# switchport mode trunk
 S1(config-if)# switchport trunk native vlan 99
 ```
+
 </details>
 
 </details>
