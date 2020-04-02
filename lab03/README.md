@@ -55,4 +55,3 @@ S1(config)#exit
 S1#copy running-config startup-config
 ```
 </details>
-|
