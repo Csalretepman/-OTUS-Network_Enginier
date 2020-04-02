@@ -71,7 +71,7 @@ S1#copy running-config startup-config
 
 </details>
 S2 и S3 настраиваются также, за исключением:
-
+```
 <details>
  <summary>S2</summary>
 
