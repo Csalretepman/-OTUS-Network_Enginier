@@ -22,7 +22,7 @@
 
 # Решения:
 
-#№№ Часть 1. Настройка базовых параметров коммутатора
+### Часть 1. Настройка базовых параметров коммутатора
 #### Шаг 1. Создайте сеть согласно топологии.
 #### Подключите устройства, как показано в топологии, и подсоедините необходимые кабели (схема в начале)
 #### Шаг 2. Выполните инициализацию и перезагрузку коммутаторов.
@@ -49,7 +49,7 @@ S1(config-line)#login
 S1(config-line)#exec-timeout 5 0
 S1(config-line)#logging synchronous
 S1(config-line)#exit
-S1(config)#int range f0/1-4,f0/6-24
+S1(config)#int range e0/0-3,e1/1-3
 S1(config-if-range)#shut
 S1(config)#no logging console
 S1(config)#vtp mode transparent
@@ -58,7 +58,7 @@ S1(config-vlan)#name Management
 S1(config-vlan)#vlan 10
 S1(config-vlan)#name Staff
 S1(config-vlan)#exit
-S1(config)#int f0/5
+S1(config)#int e1/0
 S1(config-if)#switchport mode access
 S1(config-if)#switchport access vlan 10
 S1(config-if)#exit
@@ -99,7 +99,7 @@ S1(config-if)#ip address 192.168.99.13 255.255.255.0
 
 ``` bash
 S1#conf t
-S1(config)#interface range f0/3-4
+S1(config)#interface range e0/2-3
 S1(config-if-range)#channel-group 1 mode desirable
 Creating a port-channel interface Port-channel 1
 
@@ -112,7 +112,7 @@ S1(config-if-range)#no shutdown
 
 ``` bash
 S1#conf t
-S1(config)#interface range f0/3-4
+S1(config)#interface range e0/2-3
 S1(config-if-range)#channel-group 1 mode auto
 Creating a port-channel interface Port-channel 1
 
@@ -126,7 +126,15 @@ S1(config-if-range)#no shutdown
  <summary>S1</summary>
 
 ``` bash
-S1#sh run interface f0/3
+S1#sh run interface e0/2
+
+interface Ethernet0/2
+ channel-group 1 mode desirable
+end
+```
+
+``` bash
+S1#sh run interface e0/3
 
 interface Ethernet0/3
  channel-group 1 mode desirable
@@ -134,21 +142,13 @@ end
 ```
 
 ``` bash
-S1#sh run interface f0/4
-
-interface Ethernet0/4
- channel-group 1 mode desirable
-end
-```
-
-``` bash
-S1#sh int f0/3 switchport
+S1#sh int e0/2 switchport
 Administrative Mode: dynamic auto
 Operational Mode: static access (member of bundle Po1)
 ```
 
 ``` bash
-S1#sh int f0/4 switchport
+S1#sh int e0/3 switchport
 Administrative Mode: dynamic auto
 Operational Mode: static access (member of bundle Po1)
 
@@ -159,25 +159,25 @@ Operational Mode: static access (member of bundle Po1)
  <summary>S3</summary>
 
 ``` bash
-S3#sh run interface f0/3
-interface Ethernet0/1
- channel-group 1 mode auto
-```
-
-``` bash
-S3#sh run interface f0/4
+S3#sh run interface e0/2
 interface Ethernet0/2
  channel-group 1 mode auto
 ```
 
 ``` bash
-S3#sh int f0/3 switch
+S3#sh run interface e0/3
+interface Ethernet0/3
+ channel-group 1 mode auto
+```
+
+``` bash
+S3#sh int e0/2 switch
 Administrative Mode: dynamic auto
 Operational Mode: static access (member of bundle Po1)
 ```
 
 ``` bash
-S3#sh int f0/4 switch
+S3#sh int e0/3 switch
 Administrative Mode: dynamic auto
 Operational Mode: static access (member of bundle Po1)
 ```
@@ -193,7 +193,7 @@ S1#show etherchannel summary
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+----------------------------------------------
 
-1      Po1(SU)           PAgP   Fa0/3(P) Fa0/4(P)
+1      Po1(SU)           PAgP   Et0/2(P) Et0/3(P)
 ```
 </details>
 
@@ -206,7 +206,7 @@ S3#show etherchannel summary
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+----------------------------------------------
 
-1      Po1(SU)           PAgP   Fa0/3(P) Fa0/4(P) 
+1      Po1(SU)           PAgP   Et0/2(P) Et0/3(P) 
 ```
 </details>
 
@@ -218,6 +218,7 @@ Group  Port-channel  Protocol    Ports
  
 ``` bash
 S1(config)# interface port-channel 1
+S1(config-if)# switchport trunk encapsulation dot1q
 S1(config-if)# switchport mode trunk
 S1(config-if)# switchport trunk native vlan 99
 ```
@@ -230,6 +231,7 @@ S1(config-if)# switchport trunk native vlan 99
  
 ``` bash
 S1(config)# interface port-channel 1
+S1(config-if)# switchport trunk encapsulation dot1q
 S1(config-if)# switchport mode trunk
 S1(config-if)# switchport trunk native vlan 99
 ```
@@ -237,7 +239,7 @@ S1(config-if)# switchport trunk native vlan 99
 </details>
 
 ##### Убедитесь в том, что порты настроены в качестве транковых
-###### Выполните команды show run interface идентификатор-интерфейса на S1 и S3. Какие команды включены в список для интерфейсов F0/3 и F0/4 на обоих коммутаторах? Сравните результаты с текущей конфигурацией для интерфейса Po1. Запишите наблюдения.
+###### Выполните команды show run interface идентификатор-интерфейса на S1 и S3. Какие команды включены в список для интерфейсов e0/2 и e0/3 на обоих коммутаторах? Сравните результаты с текущей конфигурацией для интерфейса Po1. Запишите наблюдения.
 <details>
  <summary>S1</summary>
 
@@ -360,7 +362,7 @@ VLAN0010
 
 Interface        Role Sts Cost      Prio.Nbr Type
 ---------------- ---- --- --------- -------- --------------------------------
-Fa0/5            Desg FWD 19        128.5    P2p
+Et1/0            Desg FWD 19        128.5    P2p
 ```
 
 </details>
@@ -399,8 +401,8 @@ VLAN0001
 Interface        Role Sts Cost      Prio.Nbr Type
 ---------------- ---- --- --------- -------- --------------------------------
 Po1              Root BKN*9         128.28   Shr *TYPE_Inc
-Fa0/2            Desg FWD 19        128.2    P2p
-Fa0/1            Desg FWD 19        128.1    P2p
+Et0/1            Desg FWD 19        128.2    P2p
+Et0/0            Desg FWD 19        128.1    P2p
 
 VLAN0010
   Spanning tree enabled protocol ieee
@@ -416,7 +418,7 @@ VLAN0010
 
 Interface        Role Sts Cost      Prio.Nbr Type
 ---------------- ---- --- --------- -------- --------------------------------
-Fa0/5            Desg FWD 19        128.5    P2p
+Et1/0            Desg FWD 19        128.5    P2p
 ```
 
 </details>
@@ -443,7 +445,7 @@ Po1              Root BKN*9         128.28   Shr *TYPE_Inc
  <summary>S1</summary>
  
 ``` bash
-S1(config)# interface range f0/1-2
+S1(config)# interface range e0/0-1
 S1(config-if-range)# switchport mode trunk
 S1(config-if-range)# switchport trunk native vlan 99
 S1(config-if-range)# channel-group 2 mode active
@@ -455,7 +457,7 @@ S1(config-if-range)# channel-group 2 mode active
  <summary>S2</summary>
  
 ``` bash
-S1(config)# interface range f0/1-2
+S1(config)# interface range e0/0-1
 S1(config-if-range)# switchport mode trunk
 S1(config-if-range)# switchport trunk native vlan 99
 S1(config-if-range)# channel-group 2 mode active
@@ -464,14 +466,14 @@ S1(config-if-range)# channel-group 2 mode active
 </details>
 
 Для агрегирования каналов используется протокол LACP
-Для образования Po2 используются порты Fa0/1(P) Fa0/2(P)
+Для образования Po2 используются порты Et0/0(P) Et0/1(P)
 
 ``` bash
 S2#sh etherchannel summary
 
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+-----------------------------------------------
-2      Po2(SU)           LACP   Fa0/1(P) Fa0/2(P)
+2      Po2(SU)           LACP   Et0/0(P) Et0/1(P)
 ```
 
 ##### Настройте LACP между S2 и S3
@@ -480,7 +482,7 @@ Group  Port-channel  Protocol    Ports
  <summary>S2</summary>
  
 ``` bash
-S2(config)# interface range f0/3-4
+S2(config)# interface range e0/2-3
 S2(config-if-range)# switchport mode trunk
 S2(config-if-range)# switchport trunk native vlan 99
 S2(config-if-range)# channel-group 3 mode active
@@ -494,7 +496,7 @@ S2(config-if-range)# no shutdown
  <summary>S3</summary>
  
 ``` bash
-S3(config)# interface range f0/1-2
+S3(config)# interface range e0/0-1
 S3(config-if-range)# switchport mode trunk
 S3(config-if-range)# switchport trunk native vlan 99
 S3(config-if-range)# channel-group 3 mode passive
