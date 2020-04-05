@@ -91,6 +91,12 @@ S1(config-if)#ip address 192.168.99.13 255.255.255.0
 
 ##### Шаг 4: Настройте компьютеры.
 
+``` bash
+PC-1: ip 192.168.10.1/24
+PC-2: ip 192.168.10.2/24
+PC-3: ip 192.168.10.3/24
+```
+
 ### Часть 2. Настройка протокола PAgP
 ##### Настройте PAgP на S1 и S3
 
@@ -244,18 +250,24 @@ S1(config-if)# switchport trunk native vlan 99
  <summary>S1</summary>
 
 ``` bash
-S1# sh run interface Po1
+S1#sh run interface Po1
+Building configuration...
 
+Current configuration : 125 bytes
+!
 interface Port-channel1
+ switchport trunk encapsulation dot1q
  switchport trunk native vlan 99
+ switchport mode trunk
 end
+
 S1#sh int Po1 switchport
 Name: Po1
 Switchport: Enabled
-Administrative Mode: dynamic auto
-Operational Mode: static access
-Administrative Trunking Encapsulation: negotiate
-Operational Trunking Encapsulation: native
+Administrative Mode: trunk
+Operational Mode: trunk
+Administrative Trunking Encapsulation: dot1q
+Operational Trunking Encapsulation: dot1q
 Negotiation of Trunking: On
 Access Mode VLAN: 1 (default)
 Trunking Native Mode VLAN: 99 (Management)
@@ -272,6 +284,9 @@ Administrative private-vlan trunk mappings: none
 Operational private-vlan: none
 Trunking VLANs Enabled: ALL
 Pruning VLANs Enabled: 2-1001
+
+Protected: false
+Appliance trust: none
 ```
 
 </details>
@@ -280,18 +295,24 @@ Pruning VLANs Enabled: 2-1001
  <summary>S3</summary>
  
 ``` bash
-S3# sh run interface Po1
+S3#sh run interface Po1
+Building configuration...
 
+Current configuration : 125 bytes
+!
 interface Port-channel1
+ switchport trunk encapsulation dot1q
  switchport trunk native vlan 99
+ switchport mode trunk
 end
+
 S3#sh int Po1 switchport
 Name: Po1
 Switchport: Enabled
-Administrative Mode: dynamic auto
-Operational Mode: static access
-Administrative Trunking Encapsulation: negotiate
-Operational Trunking Encapsulation: native
+Administrative Mode: trunk
+Operational Mode: trunk
+Administrative Trunking Encapsulation: dot1q
+Operational Trunking Encapsulation: dot1q
 Negotiation of Trunking: On
 Access Mode VLAN: 1 (default)
 Trunking Native Mode VLAN: 99 (Management)
@@ -308,6 +329,9 @@ Administrative private-vlan trunk mappings: none
 Operational private-vlan: none
 Trunking VLANs Enabled: ALL
 Pruning VLANs Enabled: 2-1001
+
+Protected: false
+Appliance trust: none
 ```
 
 </details>
@@ -318,12 +342,13 @@ Pruning VLANs Enabled: 2-1001
  <summary>S1</summary>
  
 ``` bash
-S1#show interfaces trunk 
-Port        Mode         Encapsulation  Status        Native vlan
-Po1         on           802.1q         trunking      99
+S1#show interfaces trunk
+
+Port        Mode             Encapsulation  Status        Native vlan
+Po1         on               802.1q         trunking      99
 
 Port        Vlans allowed on trunk
-Po1         1-1005
+Po1         1-4094
 
 Port        Vlans allowed and active in management domain
 Po1         1,10,99
@@ -332,37 +357,59 @@ Port        Vlans in spanning tree forwarding state and not pruned
 Po1         1,10,99
 
 S1#show spanning-tree
+
 VLAN0001
   Spanning tree enabled protocol ieee
   Root ID    Priority    32769
-             Address     0001.C772.84E8
+             Address     aabb.cc00.1000
              This bridge is the root
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
 
   Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
-             Address     0001.C772.84E8
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-             Aging Time  20
+             Address     aabb.cc00.1000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
 
-Interface        Role Sts Cost      Prio.Nbr Type
----------------- ---- --- --------- -------- --------------------------------
-Po1              Desg FWD 9         128.28   Shr
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po1                 Desg FWD 56        128.65   P2p
+
+
 
 VLAN0010
   Spanning tree enabled protocol ieee
   Root ID    Priority    32778
-             Address     0001.C772.84E8
+             Address     aabb.cc00.1000
              This bridge is the root
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
 
   Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
-             Address     0001.C772.84E8
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-             Aging Time  20
+             Address     aabb.cc00.1000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
 
-Interface        Role Sts Cost      Prio.Nbr Type
----------------- ---- --- --------- -------- --------------------------------
-Et1/0            Desg FWD 19        128.5    P2p
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Et1/0               Desg FWD 100       128.5    P2p
+Po1                 Desg FWD 56        128.65   P2p
+
+
+
+VLAN0099
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32867
+             Address     aabb.cc00.1000
+             This bridge is the root
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32867  (priority 32768 sys-id-ext 99)
+             Address     aabb.cc00.1000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po1                 Desg FWD 56        128.65   P2pp
 ```
 
 </details>
@@ -371,54 +418,79 @@ Et1/0            Desg FWD 19        128.5    P2p
  <summary>S3</summary>
  
 ``` bash
-S3#show interfaces trunk 
-Port        Mode         Encapsulation  Status        Native vlan
-Po1         on           802.1q         trunking      99
+S3#show interfaces trunk
+
+Port        Mode             Encapsulation  Status        Native vlan
+Po1         on               802.1q         trunking      99
 
 Port        Vlans allowed on trunk
-Po1         1-1005
+Po1         1-4094
 
 Port        Vlans allowed and active in management domain
 Po1         1,10,99
 
 Port        Vlans in spanning tree forwarding state and not pruned
-Po1         none
+Po1         1,10,99
 
-S3#show spanning-tree 
+
+S3#show spanning-tree
+
 VLAN0001
   Spanning tree enabled protocol ieee
   Root ID    Priority    32769
-             Address     0001.C772.84E8
-             Cost        9
-             Port        28(Port-channel1)
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Address     aabb.cc00.1000
+             Cost        56
+             Port        65 (Port-channel1)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
 
   Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
-             Address     0007.EC51.4628
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-             Aging Time  20
+             Address     aabb.cc00.3000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
 
-Interface        Role Sts Cost      Prio.Nbr Type
----------------- ---- --- --------- -------- --------------------------------
-Po1              Root BKN*9         128.28   Shr *TYPE_Inc
-Et0/1            Desg FWD 19        128.2    P2p
-Et0/0            Desg FWD 19        128.1    P2p
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po1                 Root FWD 56        128.65   P2p
+
+
 
 VLAN0010
   Spanning tree enabled protocol ieee
   Root ID    Priority    32778
-             Address     0007.EC51.4628
-             This bridge is the root
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Address     aabb.cc00.1000
+             Cost        56
+             Port        65 (Port-channel1)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
 
   Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
-             Address     0007.EC51.4628
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-             Aging Time  20
+             Address     aabb.cc00.3000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
 
-Interface        Role Sts Cost      Prio.Nbr Type
----------------- ---- --- --------- -------- --------------------------------
-Et1/0            Desg FWD 19        128.5    P2p
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Et1/0               Desg FWD 100       128.5    P2p
+Po1                 Root FWD 56        128.65   P2p
+
+
+
+VLAN0099
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32867
+             Address     aabb.cc00.1000
+             Cost        56
+             Port        65 (Port-channel1)
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32867  (priority 32768 sys-id-ext 99)
+             Address     aabb.cc00.3000
+             Hello Time   2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  300 sec
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- --------------------------------
+Po1                 Root FWD 56        128.65   P2p
+
 ```
 
 </details>
@@ -430,11 +502,11 @@ Et1/0            Desg FWD 19        128.5    P2p
 ###### Какие значения стоимости и приоритета порта для агрегированного канала отображены в выходных данных команды show spanning-tree?
 
 ``` bash
-Po1              Desg FWD 9         128.28   Shr
+Po1              Desg FWD 9         128.28   P2p
 ```
 
 ``` bash
-Po1              Root BKN*9         128.28   Shr *TYPE_Inc
+Po1              Root BKN*9         128.28   P2p
 ```
 
 
@@ -473,7 +545,17 @@ S2#sh etherchannel summary
 
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+-----------------------------------------------
-2      Po2(SU)           LACP   Et0/0(P) Et0/1(P)
+2      Po2(SU)         LACP      Et0/0(P)    Et0/1(P)
+3      Po3(SU)         LACP      Et0/2(P)    Et0/3(P)
+```
+
+``` bash
+S3#sh etherchannel summary
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         PAgP      Et0/2(P)    Et0/3(P)
+3      Po3(SU)         LACP      Et0/0(P)    Et0/1(P)
 ```
 
 ##### Настройте LACP между S2 и S3
@@ -503,6 +585,49 @@ S3(config-if-range)# channel-group 3 mode passive
 Creating a port-channel interface Port-channel 3
 
 S3(config-if-range)# no shutdown
+```
 
+</details>
+
+#### проверка работы PAgP и LACP
+
+<details>
+ <summary>S1</summary>
+ 
+``` bash
+S1#sh etherchannel summary
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         PAgP      Et0/2(P)    Et0/3(P)
+2      Po2(SU)         LACP      Et0/0(P)    Et0/1(P)
 ```
 </details>
+
+<details>
+ <summary>S2</summary>
+ 
+``` bash
+S2#sh etherchannel summary
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+2      Po2(SU)         LACP      Et0/0(P)    Et0/1(P)
+3      Po3(SU)         LACP      Et0/2(P)    Et0/3(P)
+```
+
+</details>
+
+<details>
+ <summary>S3</summary>
+ 
+``` bash
+S2#sh etherchannel summary
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         PAgP      Et0/2(P)    Et0/3(P)
+3      Po3(SU)         LACP      Et0/0(P)    Et0/1(P)
+```
+
+</details>
+
+![](ping.png)
+##### Проверка наличия сквозного соединения
