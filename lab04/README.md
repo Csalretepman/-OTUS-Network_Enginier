@@ -229,17 +229,17 @@ R3#wr
 
 Проверить информацию о соседних устройствах и маршрутизации OSPF.
 
-![]("R1#show ip ospf neighbor.JPG")
-![](R2#show ip ospf neighbor.JPG)
-![](R3#show ip ospf neighbor.JPG)
+![]('R1%23show ip ospf neighbor.JPG')
+![](R2%23show ip ospf neighbor.JPG)
+![](R3%23show ip ospf neighbor.JPG)
 
-![](R1#sh ip route.JPG)
-![](R2#sh ip route.JPG)
-![](R3#sh ip route.JPG)
+![](R1%23sh ip route.JPG)
+![](R2%23sh ip route.JPG)
+![](R3%23sh ip route.JPG)
 
-![](R1#show ip protocols.JPG)
-![](R2#show ip protocols.JPG)
-![](R3#show ip protocols.JPG)
+![](R1%23show ip protocols.JPG)
+![](R2%23show ip protocols.JPG)
+![](R3%23show ip protocols.JPG)
 
 Какую команду вы бы применили, чтобы просмотреть в таблице маршрутизации только маршруты OSPF?
 show ip route ospf
