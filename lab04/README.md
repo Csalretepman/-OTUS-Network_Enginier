@@ -1,7 +1,7 @@
 # Настройка базового протокола OSPFv2 для одной области
 ## Топология
 
-![](scheme.JPG)
+![](scheme.jpg)
 
 ## Таблица адресации
 
@@ -229,7 +229,7 @@ R3#wr
 
 Проверить информацию о соседних устройствах и маршрутизации OSPF.
 
-![](R1#show ip ospf neighbor.JPG)
+![](*R1#show ip ospf neighbor.JPG*)
 ![](R2#show ip ospf neighbor.JPG)
 ![](R3#show ip ospf neighbor.JPG)
 
