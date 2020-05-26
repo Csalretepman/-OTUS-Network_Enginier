@@ -1,0 +1,3 @@
+R1#conf t
+R1(config)#router ospf 1
+R1(config-router)#auto-cost reference-bandwidth 10000

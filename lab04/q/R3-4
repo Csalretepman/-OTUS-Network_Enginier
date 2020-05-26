@@ -1,0 +1,9 @@
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router ospf 1
+R3(config-router)#router-id 33.33.33.33
+% OSPF: Reload or use "clear ip ospf process" command, for this to take effect
+R3(config-router)#exit
+R3(config)#exit
+R3#wr
+R3#reload

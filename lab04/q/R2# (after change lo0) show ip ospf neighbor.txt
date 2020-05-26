@@ -1,0 +1,5 @@
+R2#sh ip ospf nei
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+1.1.1.1           0   FULL/  -        00:00:30    192.168.23.2    Serial1/1
+3.3.3.3           0   FULL/  -        00:00:39    192.168.12.1    Serial1/0

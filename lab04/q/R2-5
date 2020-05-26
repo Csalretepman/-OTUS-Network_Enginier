@@ -1,0 +1,7 @@
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#router ospf 1
+R2(config-router)#passive-interface e0/0
+R2(config-router)#exit
+R2(config)#exit
+R2#wr

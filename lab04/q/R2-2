@@ -1,0 +1,9 @@
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#router ospf 1
+R2(config-router)#network 192.168.2.0 0.0.0.255 area 0
+R2(config-router)#network 192.168.12.0 0.0.0.3 area 0
+R2(config-router)#network 192.168.23.0 0.0.0.3 area 0
+R2(config-router)#exit
+R2(config)#exit
+R2#wr

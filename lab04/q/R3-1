@@ -1,0 +1,35 @@
+Router(config)#hostname R3
+R3(config)#no logging console
+R3(config)#no ip domain-lookup
+R3(config)#int s1/0
+R3(config-if)#ip address 192.168.13.2 255.255.255.252
+R3(config-if)#clock rate 128000
+R3(config-if)#no shutdown
+R3(config-if)#exit
+R3(config)#int s1/1
+R3(config-if)#ip address 192.168.23.2 255.255.255.252
+R3(config-if)#no shutdown
+R3(config-if)#exit
+R3(config)#int e0/0
+R3(config-if)#ip address 192.168.3.1 255.255.255.0
+R3(config-if)#no shutdown
+R3(config-if)#exit
+R3(config)#service password-encryption
+R3(config)#enable secret class
+R3(config)#line console 0
+R3(config-line)#password cisco
+R3(config-line)#exec-timeout 5 0
+R3(config-line)#logging synchronous
+R3(config-line)#login
+R3(config-line)#exit
+R3(config)#line vty 0 4
+R3(config-line)#password cisco
+R3(config-line)#exec-timeout 5 0
+R3(config-line)#logging synchronous
+R3(config-line)#login
+R3(config-line)#exit
+R3(config)#exit
+R3#wr
+Building configuration...
+[OK]
+R3#wr

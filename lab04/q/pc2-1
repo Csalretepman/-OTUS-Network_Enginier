@@ -1,0 +1,4 @@
+VPCS> set pcname PC-2
+PC-2> ip 192.168.2.3/24 192.168.2.1
+Checking for duplicate address...
+PC1 : 192.168.2.3 255.255.255.0 gateway 192.168.2.1

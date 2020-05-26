@@ -1,0 +1,4 @@
+R1#conf t
+R1(config)#int lo0
+R1(config-if)#ip address 1.1.1.1 255.255.255.255
+R1(config-if)#end
