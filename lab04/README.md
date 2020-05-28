@@ -229,20 +229,36 @@ R3#wr
 
 Проверить информацию о соседних устройствах и маршрутизации OSPF
 
+<details>
+ <summary>show ip ospf nei </summary>
+
 ![](R1show-ip-ospf-neighbor.JPG)
 ![](R2show-ip-ospf-neighbor.JPG)
 ![](R3show-ip-ospf-neighbor.JPG)
 
+</details>
+
+<details>
+ <summary>show ip route </summary>
+ 
 ![](R1sh-ip-route.JPG)
 ![](R2sh-ip-route.JPG)
 ![](R3sh-ip-route.JPG)
 
+</details>
+
+<details>
+ <summary>show ip protocols </summary>
+ 
 ![](R1show-ip-protocols.JPG)
 ![](R2show-ip-protocols.JPG)
 ![](R3show-ip-protocols.JPG)
 
+</details>
+
 Какую команду вы бы применили, чтобы просмотреть в таблице маршрутизации только маршруты OSPF?
-show ip route ospf
+
+*show ip route ospf*
 
 Проверить данные процесса OSPF
 
