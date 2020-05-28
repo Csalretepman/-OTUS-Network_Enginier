@@ -297,3 +297,52 @@ R3#show ip ospf
 ![](PC-2-ping.JPG)
 ![](PC-3-ping.JPG)
 
+
+### Часть 3. Изменение назначенных идентификаторов маршрутизаторов
+
+##### Шаг 1. Изменить идентификаторы loopback-интерфейсов
+
+Настроим значения loopback-интерфейсов маршрутизаторов
+
+<details>
+ <summary>R1</summary>
+
+``` bash
+R1#conf t
+R1(config)#interface lo0
+R1(config-if)#ip address 1.1.1.1 255.255.255.255
+R1(config-if)#end
+```
+</details>
+
+<details>
+ <summary>R2</summary>
+
+``` bash
+R2#conf t
+R2(config)#interface lo0
+R2(config-if)#ip address 2.2.2.2 255.255.255.255
+R2(config-if)#end
+```
+</details>
+
+<details>
+ <summary>R3</summary>
+
+``` bash
+R3#conf t
+R3(config)#interface lo0
+R3(config-if)#ip address 3.3.3.3 255.255.255.255
+R3(config-if)#end
+```
+</details>
+
+<details>
+ <summary>Просмотр изменений идентификаторов </summary>
+
+``` bash
+R1show-ip-ospf-neighbor.JPG
+R2show-ip-ospf-neighbor.JPG
+R3show-ip-ospf-neighbor.JPG
+```
+</details>
