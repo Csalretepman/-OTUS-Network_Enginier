@@ -227,7 +227,7 @@ R3#wr
 ```
 </details>
 
-Проверить информацию о соседних устройствах и маршрутизации OSPF.
+Проверить информацию о соседних устройствах и маршрутизации OSPF
 
 ![](R1show-ip-ospf-neighbor.JPG)
 ![](R2show-ip-ospf-neighbor.JPG)
@@ -247,7 +247,7 @@ show ip route ospf
 Проверить данные процесса OSPF
 
 <details>
- <summary>Процессы OSPF R1</summary>
+ <summary>R1</summary>
 
 ``` bash
 R1#show ip ospf
@@ -262,7 +262,7 @@ R1#show ip ospf
 </details>
 
 <details>
- <summary>Процессы OSPF R2</summary>
+ <summary>R2</summary>
 
 ``` bash
 R2#show ip ospf
@@ -273,7 +273,7 @@ R2#show ip ospf
 ```
 </details>
 <details>
- <summary>Процессы OSPF R3</summary>
+ <summary>R3</summary>
 
 ``` bash
 R3#show ip ospf
@@ -287,13 +287,13 @@ R3#show ip ospf
 
 Проверить параметры интерфейса OSPF
 
-![](R1#show ip ospf int bri.JPG)
-![](R2#show ip ospf int bri.JPG)
-![](R3#show ip ospf int bri.JPG)
-
+![](R1show-ip-ospf-int-bri.JPG)
+![](R2show-ip-ospf-int-bri.JPG)
+![](R3show-ip-ospf-int-bri.JPG)
+![](R3show-ip-protocols.JPG)
 Наличие сквозного соединения
 
-![](PC-1#ping.JPG)
-![](PC-2#ping.JPG)
-![](PC-3#ping.JPG)
-
+![](PC-1ping.JPG)
+![](PC-2ping.JPG)
+![](PC-3ping.JPG)
+![](R3show-ip-protocols.JPG)
