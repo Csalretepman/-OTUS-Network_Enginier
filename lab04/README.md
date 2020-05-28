@@ -293,7 +293,7 @@ R3#show ip ospf
 ![](R3show-ip-protocols.JPG)
 Наличие сквозного соединения
 
-![](PC-1ping.JPG)
-![](PC-2ping.JPG)
-![](PC-3ping.JPG)
-![](R3show-ip-protocols.JPG)
+![](PC-1-ping.JPG)
+![](PC-2-ping.JPG)
+![](PC-3-ping.JPG)
+
