@@ -398,5 +398,67 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 ```
 </details>
 
+##### *Шаг 2. Изменить идентификатор маршрутизаторов с помощью команды router-id.*
+
+Настроим значения router-id маршрутизаторов
+
+
+<details>
+ <summary>R1</summary>
+
+``` bash
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#router ospf 1
+R1(config-router)#router-id 11.11.11.11
+% OSPF: Reload or use "clear ip ospf process" command, for this to take effect
+R1(config-router)#end
+R1#wr
+R1#reload
+```
+</details>
+
+<details>
+ <summary>R2</summary>
+
+``` bash
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#router ospf 1
+R2(config-router)#router-id 22.22.22.22
+% OSPF: Reload or use "clear ip ospf process" command, for this to take effect
+R2(config-router)#end
+R2#wr
+R2#reload
+```
+</details>
+
+<details>
+ <summary>R3</summary>
+
+``` bash
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router ospf 1
+R3(config-router)#router-id 33.33.33.33
+% OSPF: Reload or use "clear ip ospf process" command, for this to take effect
+R3(config-router)#end
+R3#wr
+R3#reload
+```
+</details>
+
+<details>
+ <summary>R1# (after change router-id) show ip ospf neighbor.txt</summary>
+
+``` bash
+R1#sh ip ospf nei
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+33.33.33.33       0   FULL/  -        00:00:30    192.168.13.2    Serial1/1
+22.22.22.22       0   FULL/  -        00:00:37    192.168.12.2    Serial1/0
+```
+</details>
+
 
 
