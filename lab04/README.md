@@ -303,16 +303,25 @@ R3#show ip ospf
 
 Проверить параметры интерфейса OSPF
 
+<details>
+ <summary>show ip ip ospf int bri </summary>
+ 
 ![](R1show-ip-ospf-int-bri.JPG)
 ![](R2show-ip-ospf-int-bri.JPG)
 ![](R3show-ip-ospf-int-bri.JPG)
 
+</details>
+
 Наличие сквозного соединения
 
+<details>
+ <summary>PC ping </summary>
+ 
 ![](PC-1-ping.JPG)
 ![](PC-2-ping.JPG)
 ![](PC-3-ping.JPG)
 
+</details>
 
 ### Часть 3. Изменение назначенных идентификаторов маршрутизаторов
 
@@ -354,10 +363,40 @@ R3(config-if)#end
 </details>
 
 <details>
- <summary>show ip ospf nei </summary>
+ <summary>R1# (after change lo0) show ip ospf neighbor</summary>
 
-![](R1show-ip-ospf-neighbor.JPG)
-![](R2show-ip-ospf-neighbor.JPG)
-![](R3show-ip-ospf-neighbor.JPG)
+``` bash
+R1#sh ip ospf nei
 
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+3.3.3.3           0   FULL/  -        00:00:34    192.168.13.2    Serial1/1
+2.2.2.2           0   FULL/  -        00:00:35    192.168.12.2    Serial1/0
+```
 </details>
+
+<details>
+ <summary>R2# (after change lo0) show ip ospf neighbor</summary>
+
+``` bash
+R2#sh ip ospf nei
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+1.1.1.1           0   FULL/  -        00:00:30    192.168.23.2    Serial1/1
+3.3.3.3           0   FULL/  -        00:00:39    192.168.12.1    Serial1/0
+```
+</details>
+
+<details>
+ <summary>R3# (after change lo0) show ip ospf neighbor</summary>
+
+``` bash
+R3#sh ip ospf nei
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+1.1.1.1           0   FULL/  -        00:00:38    192.168.13.1    Serial1/0
+2.2.2.2           0   FULL/  -        00:00:32    192.168.23.1    Serial1/1
+```
+</details>
+
+
+
