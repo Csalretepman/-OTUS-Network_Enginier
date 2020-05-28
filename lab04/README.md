@@ -290,7 +290,7 @@ R3#show ip ospf
 ![](R1show-ip-ospf-int-bri.JPG)
 ![](R2show-ip-ospf-int-bri.JPG)
 ![](R3show-ip-ospf-int-bri.JPG)
-![](R3show-ip-protocols.JPG)
+
 Наличие сквозного соединения
 
 ![](PC-1-ping.JPG)
