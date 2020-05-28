@@ -340,9 +340,9 @@ R3(config-if)#end
 <details>
  <summary>Просмотр изменений идентификаторов </summary>
 
-``` bash
+
 R1show-ip-ospf-neighbor.JPG
 R2show-ip-ospf-neighbor.JPG
 R3show-ip-ospf-neighbor.JPG
-```
+
 </details>
