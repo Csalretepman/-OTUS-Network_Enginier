@@ -338,11 +338,10 @@ R3(config-if)#end
 </details>
 
 <details>
- <summary>Просмотр изменений идентификаторов </summary>
+ <summary>show ip ospf nei </summary>
 
-
-R1show-ip-ospf-neighbor.JPG
-R2show-ip-ospf-neighbor.JPG
-R3show-ip-ospf-neighbor.JPG
+![](R1show-ip-ospf-neighbor.JPG)
+![](R2show-ip-ospf-neighbor.JPG)
+![](R3show-ip-ospf-neighbor.JPG)
 
 </details>
