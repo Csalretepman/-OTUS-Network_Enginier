@@ -460,9 +460,6 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 ```
 </details>
 
-
-
-```
 ### Часть 4. Настройка пассивных интерфейсов OSPF
 
 ##### Шаг 1. Настроим интерфейсы e0/0 на всех роутерах, чтобы через них не пересылались обновления маршрутов.
@@ -472,7 +469,7 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 <details>
  <summary>R1</summary>
 
-​``` bash
+``` bash
 R1#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 R1(config)#router ospf 1
@@ -481,13 +478,13 @@ R1(config-router)#exit
 R1(config)#exit
 R1#wr
 
-​```
+```
 </details>
 
 <details>
  <summary>R2</summary>
 
-​``` bash
+``` bash
 R2#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 R2(config)#router ospf 1
@@ -496,13 +493,13 @@ R2(config-router)#exit
 R2(config)#exit
 R2#wr
 
-​```
+```
 </details>
 
 <details>
  <summary>R3</summary>
 
-​``` bash
+``` bash
 R2#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 R3(config)#router ospf 1
@@ -511,24 +508,24 @@ R3(config-router)#exit
 R3(config)#exit
 R3#wr
 
-​```
+```
 </details>
 
 Проверка passive-interface на e0/0
-​``` bash
+``` bash
 R1#show ip ospf interface e0/0
 Ethernet0/0 is up, line protocol is up
   Internet Address 192.168.1.1/24, Area 0, Attached via Network Statement
   Process ID 1, Router ID 11.11.11.11, Network Type BROADCAST, Cost: 10
   
     No Hellos (Passive interface)
-​```
+```
 Проверим, что у роутеров R2 и R3 не пропали маршруты до сети 192.168.1.0/24
 
 <details>
  <summary>R2 знает маршрут до 192.168.1.0/24</summary>
 
-​``` bash
+``` bash
 R2#sh ip route ospf
 
 O     192.168.1.0/24 [110/74] via 192.168.12.1, 00:32:02, Serial1/0
@@ -536,13 +533,13 @@ O     192.168.3.0/24 [110/74] via 192.168.23.2, 00:29:41, Serial1/1
       192.168.13.0/30 is subnetted, 1 subnets
 O        192.168.13.0 [110/128] via 192.168.23.2, 00:29:41, Serial1/1
                       [110/128] via 192.168.12.1, 00:32:02, Serial1/0
-​```
+```
 </details>
 
 <details>
  <summary>R3 знает маршрут до 192.168.1.0/24</summary>
 
-​``` bash
+``` bash
 R3#sh ip route ospf
 
 O     192.168.1.0/24 [110/74] via 192.168.13.1, 00:29:59, Serial1/0
@@ -551,7 +548,7 @@ O     192.168.2.0/24 [110/74] via 192.168.23.1, 00:29:59, Serial1/1
 O        192.168.12.0 [110/128] via 192.168.23.1, 00:29:59, Serial1/1
                       [110/128] via 192.168.13.1, 00:29:59, Serial1/0
 
-​```
+```
 </details>
 
 
