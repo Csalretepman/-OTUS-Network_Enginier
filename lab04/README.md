@@ -511,7 +511,9 @@ R3#wr
 ```
 </details>
 
-Проверка passive-interface на e0/0
+<details>
+ <summary>Проверка passive-interface на e0/0</summary>
+
 ``` bash
 R1#show ip ospf interface e0/0
 Ethernet0/0 is up, line protocol is up
@@ -519,7 +521,10 @@ Ethernet0/0 is up, line protocol is up
   Process ID 1, Router ID 11.11.11.11, Network Type BROADCAST, Cost: 10
   
     No Hellos (Passive interface)
+
 ```
+</details>
+
 Проверим, что у роутеров R2 и R3 не пропали маршруты до сети 192.168.1.0/24
 
 <details>
@@ -550,6 +555,3 @@ O        192.168.12.0 [110/128] via 192.168.23.1, 00:29:59, Serial1/1
 
 ```
 </details>
-
-
-```
