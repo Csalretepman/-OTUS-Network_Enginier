@@ -1,0 +1,34 @@
+Router>en
+Router#conf t
+Router(config)#hostname R2
+R2(config)#no logging console
+R2(config)#no ip domain-lookup
+R2(config)#service password-encryption 
+R2(config)#enable secret class
+R2(config)#line console 0
+R2(config-line)#password cisco
+R2(config-line)#logging synchronous
+R2(config-line)#login
+R2(config-line)#exit
+R2(config)#line vty 0 4
+R2(config-line)#password cisco
+R2(config-line)#logging synchronous
+R2(config-line)#login
+R2(config-line)#exit
+R2(config)#int lo6
+R2(config-if)#ip address 192.168.6.1 255.255.255.0
+R2(config-if)#no shutdown
+R2(config-if)#exit
+R2(config)#int s1/0
+R2(config-if)#ip address 192.168.12.2 255.255.255.252
+R2(config-if)#no shutdown
+R2(config-if)#exit
+R2(config)#int s1/1
+R2(config-if)#ip address 192.168.23.1 255.255.255.252
+R2(config-if)#clock rate 128000
+R2(config-if)#no shutdown
+R2(config-if)#end
+R2#wr
+Building configuration...
+[OK]
+R2#
