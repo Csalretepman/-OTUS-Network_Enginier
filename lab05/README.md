@@ -430,6 +430,57 @@ R3: Internal
 </details>
 
 
+##### Шаг 6. Настроить аутентификацию MD5 для всех последовательных интерфейсов
+
+<details>
+ <summary> R1</summary>
+
+``` bash
+R1#conf t
+R1(config)#int s1/0
+R1(config-if)#ip ospf authentication message-digest
+R1(config-if)#ip ospf message-digest-key 1 md5 Cisco123
+R1(config-if)#end
+
+```
+</details>
+
+<details>
+ <summary> R2</summary>
+
+``` bash
+R2#conf t
+R2(config)#int s1/0
+R2(config-if)#ip ospf authentication message-digest
+R2(config-if)#ip ospf message-digest-key 1 md5 Cisco123
+R2(config-if)#int s1/1
+R2(config-if)#ip ospf authentication message-digest
+R2(config-if)#ip ospf message-digest-key 1 md5 Cisco123
+R2(config-if)#end
 
 
+```
+</details>
 
+<details>
+ <summary> R3</summary>
+
+``` bash
+R3#conf t
+R3(config)#int s1/1
+R3(config-if)#ip ospf authentication message-digest
+R3(config-if)#ip ospf message-digest-key 1 md5 Cisco123
+R3(config-if)#end
+
+```
+
+</details>
+
+Проверить восстановление отношений смежности OSPF.
+
+<details>
+ <summary>Проверка соседей (sh ip ospf nei)</summary>
+
+![sh-ip-opf-nei(after-md5)](work_dir/sh-ip-opf-nei(after-md5).JPG)
+ 
+  </details>
