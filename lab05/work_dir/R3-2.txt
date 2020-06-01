@@ -1,0 +1,13 @@
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router ospf 1
+R3(config-router)#router-id 3.3.3.3
+R3(config-router)#passive-interface default
+R3(config-router)#network 192.168.4.0 0.0.0.255 area 3
+R3(config-router)#network 192.168.5.0 0.0.0.255 area 3
+R3(config-router)#network 192.168.23.0 0.0.0.3 area 3
+R3(config-router)#no passive-interface s1/1
+R3(config-router)#end
+R3#wr
+Building configuration...
+[OK]

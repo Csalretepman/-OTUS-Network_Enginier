@@ -164,8 +164,93 @@ Building configuration...
 
 <details>
  <summary>R2</summary>
- 
+
 ![R2sh-ip-int-bri+ping-R1-R3](work_dir/R2sh-ip-int-bri-ping-R1-R3.jpg)
 
 </details>
 
+### Часть 2. Настройка сети OSPFv2 для нескольких областей
+
+
+#### Шаг 1:	Определить типы маршрутизаторов OSPF в топологии
+
+> Магистральные маршрутизаторы: R1 и R2;
+>
+> Граничные маршрутизаторы автономной области (ASBR): R1
+>
+> Граничные маршрутизаторы области (ABR): R2;
+>
+> Внутренние маршрутизаторы: R3.
+
+
+#### Шаг 2-4:	Настройка протокол OSPF на маршрутизаторах  R1, R2, R3
+
+
+
+<details>
+<summary>R1</summary>
+
+``` bash
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#router ospf 1
+R1(config-router)#router-id 1.1.1.1
+R1(config-router)#network 192.168.1.0 0.0.0.255 area 1
+R1(config-router)#network 192.168.2.0 0.0.0.255 area 1
+R1(config-router)#network 192.168.12.0 0.0.0.3 area 0
+R1(config-router)#passive-interface default
+R1(config-router)#no passive-interface s1/0
+R1(config-router)#default-information originate
+R1(config-router)#exit
+R1(config)#ip route 0.0.0.0 0.0.0.0 lo1
+%Default route without gateway, if not a point-to-point interface, may impact performance
+R1(config)#exit
+R1#wr
+Building configuration...
+[OK]
+``` 
+
+</details>
+
+<details>
+<summary>R2</summary>
+
+``` bash
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#router ospf 1
+R2(config-router)#router-id 2.2.2.2
+R2(config-router)#passive-interface default
+R2(config-router)#network 192.168.6.0 0.0.0.255 area 3
+R2(config-router)#network 192.168.12.0 0.0.0.3 area 0
+R2(config-router)#network 192.168.23.0 0.0.0.3 area 3
+R2(config-router)#no passive-interface s1/0
+R2(config-router)#no passive-interface s1/1
+R2(config-router)#end
+R2#wr
+Building configuration...
+[OK]
+``` 
+
+</details>
+
+<details>
+<summary>R3</summary>
+
+``` bash
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router ospf 1
+R3(config-router)#router-id 3.3.3.3
+R3(config-router)#passive-interface default
+R3(config-router)#network 192.168.4.0 0.0.0.255 area 3
+R3(config-router)#network 192.168.5.0 0.0.0.255 area 3
+R3(config-router)#network 192.168.23.0 0.0.0.3 area 3
+R3(config-router)#no passive-interface s1/1
+R3(config-router)#end
+R3#wr
+Building configuration...
+[OK]
+``` 
+
+</details>
