@@ -254,3 +254,158 @@ Building configuration...
 ``` 
 
 </details>
+
+#### Шаг 5:	Убедиться в правильности настройки протокола OSPF и в установлении отношений смежности между маршрутизаторами
+
+<details>
+<summary>R1</summary>
+
+``` bash
+R1#show ip protocols
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "application"
+  Sending updates every 0 seconds
+  Invalid after 0 seconds, hold down 0, flushed after 0
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Maximum path: 32
+  Routing for Networks:
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+  Distance: (default is 4)
+
+Routing Protocol is "ospf 1"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 1.1.1.1
+  It is an area border and autonomous system boundary router
+ Redistributing External Routes from,
+  Number of areas in this router is 2. 2 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    192.168.1.0 0.0.0.255 area 1
+    192.168.2.0 0.0.0.255 area 1
+    192.168.12.0 0.0.0.3 area 0
+  Passive Interface(s):
+    Ethernet0/0
+    Ethernet0/1
+    Ethernet0/2
+    Ethernet0/3
+    Serial1/1
+    Serial1/2
+    Serial1/3
+    Loopback0
+    Loopback1
+    Loopback2
+    RG-AR-IF-INPUT1
+    VoIP-Null0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    2.2.2.2              110      00:03:22
+  Distance: (default is 110)
+
+``` 
+
+</details>
+
+<details>
+<summary>R2</summary>
+
+``` bash
+R2#sh ip prot
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "application"
+  Sending updates every 0 seconds
+  Invalid after 0 seconds, hold down 0, flushed after 0
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Maximum path: 32
+  Routing for Networks:
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+  Distance: (default is 4)
+
+Routing Protocol is "ospf 1"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 2.2.2.2
+  It is an area border router
+  Number of areas in this router is 2. 2 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    192.168.6.0 0.0.0.255 area 3
+    192.168.12.0 0.0.0.3 area 0
+    192.168.23.0 0.0.0.3 area 3
+  Passive Interface(s):
+    Ethernet0/0
+    Ethernet0/1
+    Ethernet0/2
+    Ethernet0/3
+    Serial1/2
+    Serial1/3
+    Loopback6
+    RG-AR-IF-INPUT1
+    VoIP-Null0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    3.3.3.3              110      00:06:56
+    1.1.1.1              110      00:11:10
+  Distance: (default is 110)
+
+``` 
+
+</details>
+
+<details>
+<summary>R3</summary>
+
+``` bash
+R3#sh ip prot
+*** IP Routing is NSF aware ***
+
+Routing Protocol is "application"
+  Sending updates every 0 seconds
+  Invalid after 0 seconds, hold down 0, flushed after 0
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Maximum path: 32
+  Routing for Networks:
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+  Distance: (default is 4)
+
+Routing Protocol is "ospf 1"
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 3.3.3.3
+  Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    192.168.4.0 0.0.0.255 area 3
+    192.168.5.0 0.0.0.255 area 3
+    192.168.23.0 0.0.0.3 area 3
+  Passive Interface(s):
+    Ethernet0/0
+    Ethernet0/1
+    Ethernet0/2
+    Ethernet0/3
+    Serial1/0
+    Serial1/2
+    Serial1/3
+    Loopback4
+    Loopback5
+    RG-AR-IF-INPUT1
+    VoIP-Null0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    1.1.1.1              110      00:07:16
+    2.2.2.2              110      00:07:16
+  Distance: (default is 110)
+
+``` 
+
+</details>
+
+
