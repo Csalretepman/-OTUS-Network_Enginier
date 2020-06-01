@@ -166,7 +166,6 @@ Building configuration...
  <summary>R2</summary>
 
 ![R2sh-ip-int-bri+ping-R1-R3](/work_dir/R2sh-ip-int-bri+ping-R1-R3.jpg
-```
 
 </details>
 
