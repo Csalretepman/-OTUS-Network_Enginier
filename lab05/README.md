@@ -430,7 +430,7 @@ R3: Internal
 </details>
 
 
-##### Шаг 6. Настроить аутентификацию MD5 для всех последовательных интерфейсов
+#### Шаг 6. Настроить аутентификацию MD5 для всех последовательных интерфейсов
 
 <details>
  <summary> R1</summary>
@@ -482,5 +482,55 @@ R3(config-if)#end
  <summary>Проверка соседей (sh ip ospf nei)</summary>
 
 ![sh-ip-opf-nei(after-md5)](work_dir/sh-ip-opf-nei(after-md5).JPG)
- 
+
   </details>
+
+  ### Часть 3: Настройка межобластных суммарных маршрутов
+
+  #### Шаг 1: Просмотреть таблицы маршрутизации OSPF для всех маршрутизаторов.
+
+<details>
+ <summary>R1</summary>
+
+![R1-sh-ip-route-ospf](work_dir/R1-sh-ip-route-ospf.JPG)
+
+  </details>
+
+  <details>
+ <summary>R2</summary>
+
+![R2-sh-ip-route-ospf](work_dir/R2-sh-ip-route-ospf.JPG)
+
+  </details>
+
+  <details>
+ <summary>R3</summary>
+
+![R3-sh-ip-route-ospf](work_dir/R3-sh-ip-route-ospf.JPG)
+
+  </details>
+
+  #### Шаг 2: Просмотреть базы данных LSDB на всех маршрутизаторах
+
+  <details>
+ <summary>R1</summary>
+
+![R1-sh-ip-ospf-database](work_dir/R1-sh-ip-ospf-database.JPG)
+
+  </details>
+
+   <details>
+ <summary>R2</summary>
+
+![R2-sh-ip-ospf-database](work_dir/R2-sh-ip-ospf-database.JPG)
+
+  </details>
+
+   <details>
+ <summary>R3</summary>
+
+![R3-sh-ip-ospf-database](work_dir/R3-sh-ip-ospf-database.JPG)
+
+  </details>
+
+  
