@@ -208,7 +208,7 @@ R1(config)#exit
 R1#wr
 Building configuration...
 [OK]
-``` 
+```
 
 </details>
 
@@ -230,7 +230,7 @@ R2(config-router)#end
 R2#wr
 Building configuration...
 [OK]
-``` 
+```
 
 </details>
 
@@ -251,7 +251,7 @@ R3(config-router)#end
 R3#wr
 Building configuration...
 [OK]
-``` 
+```
 
 </details>
 
@@ -305,7 +305,7 @@ Routing Protocol is "ospf 1"
     2.2.2.2              110      00:03:22
   Distance: (default is 110)
 
-``` 
+```
 
 </details>
 
@@ -354,7 +354,7 @@ Routing Protocol is "ospf 1"
     1.1.1.1              110      00:11:10
   Distance: (default is 110)
 
-``` 
+```
 
 </details>
 
@@ -404,8 +404,32 @@ Routing Protocol is "ospf 1"
     2.2.2.2              110      00:07:16
   Distance: (default is 110)
 
-``` 
+```
 
 </details>
+К какому типу маршрутизаторов OSPF относится каждый маршрутизатор?
+
+R1: Backbone+ASBR
+R2: Backbone+ABR
+R3: Internal
+
+ Убедимся в установлении отношений смежности OSPF между маршрутизаторами
+
+ <details>
+<summary>show ip ospf neighbor</summary>
+
+![sh-ip-opf-nei(all-Rs)](work_dir/sh-ip-opf-nei(all-Rs).JPG)
+
+</details>
+
+ <details>
+<summary>show ip ospf interface brief</summary>
+
+![sh-ip-ospf-int-bri(all-Rs)](work_dir/sh-ip-ospf-int-bri(all-Rs).JPG)
+
+</details>
+
+
+
 
 
