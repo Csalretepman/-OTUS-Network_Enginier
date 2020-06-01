@@ -165,7 +165,6 @@ Building configuration...
 <details>
  <summary>R2</summary>
 
-``` bash
 ![R2sh-ip-int-bri+ping-R1-R3](/work_dir/R2sh-ip-int-bri+ping-R1-R3.jpg
 ```
 
