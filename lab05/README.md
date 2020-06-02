@@ -585,26 +585,49 @@ d.  Hастроить суммарный маршрут для области 3 
  <details>
  <summary>LSDB и Таблица OSPF R1</summary>
 
-``` bash
 
-```
+![R1-sh-ip-ospf-database(after-sum)](work_dir/R1-sh-ip-ospf-database(after-sum).JPG)
 
- </details>
+ ![R1-sh-ip-route-ospf(after-sum)](work_dir/R1-sh-ip-route-ospf(after-sum).JPG)
+
+
+
+</details>
 
   <details>
  <summary>LSDB и Таблица OSPF R2</summary>
 
-``` bash
+![R2-sh-ip-ospf-database(after-sum)](work_dir/R2-sh-ip-ospf-database(after-sum).JPG)
 
-```
+ ![R2-sh-ip-route-ospf(after-sum)](work_dir/R2-sh-ip-route-ospf(after-sum).JPG)
 
- </details>
+</details>
 
   <details>
  <summary>LSDB и Таблица OSPF R3</summary>
 
-``` bash
+![R3-sh-ip-ospf-database(after-sum)](work_dir/R3-sh-ip-ospf-database(after-sum).JPG)
 
-```
+ ![R3-sh-ip-route-ospf(after-sum)](work_dir/R3-sh-ip-route-ospf(after-sum).JPG)
 
- </details>
+</details>
+
+Пакет LSA какого типа передается в магистраль маршрутизатором ABR, когда включено объединение межобластных маршрутов?
+* LSA 3
+
+
+#### Шаг 6: Проверить наличие сквозного соединения
+
+![R2-ping(final)](C:\Users\Csalretepman\Documents\GitHub\-OTUS-Network_Enginier\lab05\work_dir\R2-ping(final).jpg)
+
+
+
+##### Какие три преимущества при проектировании сети предоставляет OSPF для нескольких областей?
+
+###### Преимущества многозонального протокола OSPF 
+
+• Таблицы маршрутизации меньшего размера — меньшее число записей в таблицах маршрутизации, поскольку сетевые адреса могут объединяться между областями. 
+
+• Сокращение накладных расходов на обновление состояний каналов. 
+
+• Уменьшение частоты расчётов SPF
