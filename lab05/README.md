@@ -618,7 +618,7 @@ d.  Hастроить суммарный маршрут для области 3 
 
 #### Шаг 6: Проверить наличие сквозного соединения
 
-![R2-ping(final)](C:\Users\Csalretepman\Documents\GitHub\-OTUS-Network_Enginier\lab05\work_dir\R2-ping(final).jpg)
+![R2-ping(final)](work_dir/R2-ping(final).jpg)
 
 
 
