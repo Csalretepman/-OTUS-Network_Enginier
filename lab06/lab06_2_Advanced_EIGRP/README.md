@@ -286,6 +286,7 @@ Building configuration...
 
 <details>
  <summary>R2</summary>
+ 
 ![R2_sh_ip_route_eigrp](work_dir/R2_sh_ip_route_eigrp.JPG)
 
 
@@ -312,6 +313,7 @@ Building configuration...
 
 <details>
  <summary>R2</summary>
+ 
 ![R2_sh_ip_route_eigrp(auto-sum_on_R1)](work_dir/R2_sh_ip_route_eigrp(auto-sum_on_R1).JPG)
 
 
