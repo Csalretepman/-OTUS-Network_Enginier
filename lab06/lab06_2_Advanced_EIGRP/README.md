@@ -327,12 +327,9 @@ Building configuration...
 ``` bash
 R2#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
-R2(config)#int lo1
-R2(config-if)#ip address 192.168.22.1 255.255.255.252
-R2(config-if)#no shut
-R2(config-if)#exit
+R2(config)#ip route 0.0.0.0 0.0.0.0 lo1
 R2(config)#router eigrp 1
-R2(config-router)#network 192.168.22.0 0.0.0.3
+R2(config-router)#redistribute static
 R2(config-router)#end
 R2#wr
 Building configuration...
