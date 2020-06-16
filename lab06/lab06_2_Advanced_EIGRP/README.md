@@ -199,7 +199,7 @@ Building configuration...
 
 <details>
  <summary>Ping</summary>
-![pc's_first_ping](work_dir/pc's_first_ping.JPG)
+![pc's_first_ping](https://github.com/Csalretepman/-OTUS-Network_Enginier/blob/master/lab06/lab06_2_Advanced_EIGRP/work_dir/pc's_first_ping.JPG)
 </details>
 
 ### Часть 3. Настройка EIGRP для автоматического объединения
