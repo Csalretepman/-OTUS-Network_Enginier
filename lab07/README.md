@@ -1,7 +1,7 @@
 # IPv4/6
 ### Цель: распланировать адресное пространство, настроить IP на всех активных портах.
 
-![top](/top.JPG)
+![top](https://raw.githubusercontent.com/Csalretepman/-OTUS-Network_Enginier/master/lab07/top.JPG)
 
 Суммарная таблица подсетей LAN
 
