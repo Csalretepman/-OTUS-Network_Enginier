@@ -1,0 +1,39 @@
+conf t
+hostname R12
+no ip domain-lookup
+
+ipv6 unicast-routing
+
+interface Ethernet0/0
+  description "R12 to SW4"
+  ip address 10.10.2.2 255.255.255.0
+  ipv6 address FE80::12 link-local
+  ipv6 address 2001:ABCD:0010:2::2/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/1
+  description "R12 to SW5"
+  ip address 10.10.2.3 255.255.255.0
+  ipv6 address FE80::12 link-local
+  ipv6 address 2001:ABCD:0010:2::3/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/2
+  description "R12 to R14"
+  ip address 10.11.2.12 255.255.254.0
+  ipv6 address FE80::12 link-local
+  ipv6 address 2001:ABCD:0010:1214::12/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/3
+  description "R12 to R15"
+  ip address 10.11.6.12 255.255.254.0
+  ipv6 address FE80::12 link-local
+  ipv6 address 2001:ABCD:0010:1215::12/64
+  ipv6 enable
+  no shutdown
+  end
+wr

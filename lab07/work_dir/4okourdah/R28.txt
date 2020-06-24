@@ -1,0 +1,32 @@
+en
+conf t
+hostname R28
+no ip domain-lookup
+
+ipv6 unicast-routing
+
+interface Ethernet0/0
+  description "R28 to R26"
+  ip address 200.30.30.30 255.255.255.224
+  ipv6 address FE80::28 link-local
+  ipv6 address 2001:ABCD:0030:2628::28/64
+  ipv6 enable
+  no shut
+  exit
+interface Ethernet0/1
+  description "R28 to R25"
+  ip address 200.30.33.30 255.255.255.224
+  ipv6 address FE80::28 link-local
+  ipv6 address 2001:ABCD:0030:2528::28/64
+  ipv6 enable
+  no shut
+  exit
+interface Ethernet0/2
+  description "R28 to SW29"
+  ip address 10.30.3.1 255.255.255.0
+  ipv6 address FE80::28 link-local
+  ipv6 address 2001:ABCD:0030:3::1/64
+  ipv6 enable
+  no shut
+end
+wr

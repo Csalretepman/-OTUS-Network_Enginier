@@ -1,0 +1,16 @@
+en
+conf t
+hostname R19
+no ip domain-lookup
+
+ipv6 unicast-routing
+
+interface Ethernet0/0
+  description "R19 to R14"
+  ip address 10.11.0.19 255.255.254.0
+  ipv6 address FE80::19 link-local
+  ipv6 address 2001:ABCD:0010:1419::19/64
+  ipv6 enable
+  no shut
+end
+wr

@@ -1,0 +1,40 @@
+en
+conf t
+hostname R26
+no ip domain-lookup
+
+ipv6 unicast-routing
+
+interface Ethernet0/0
+  description "R26 to R24"
+  ip address 10.0.0.23 255.255.255.254
+  ipv6 address FE80::26 link-local
+  ipv6 address 2001:ABCD:0070:2426::26/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/1
+  description "R26 to R28"
+  ip address 200.30.30.36 255.255.255.224
+  ipv6 address FE80::26 link-local
+  ipv6 address 2001:ABCD:0030:2628::26/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/2
+  description "R26 to R25"
+  ip address 10.0.0.35 255.255.255.254
+  ipv6 address FE80::26 link-local
+  ipv6 address 2001:ABCD:0070:2526::26/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/3
+  description "R26 to R18"
+  ip address 100.10.10.205 255.255.255.224
+  ipv6 address FE80::26 link-local
+  ipv6 address 2001:ABCD:0020:1826::26/64
+  ipv6 enable
+  no shutdown
+  end
+wr

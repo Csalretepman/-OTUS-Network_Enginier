@@ -1,0 +1,32 @@
+en
+conf t
+hostname R17
+no ip domain-lookup
+
+ipv6 unicast-routing
+
+interface Ethernet0/0
+  description "R17 to SW9 (Vlan2)"
+  ip address 10.20.2.2 255.255.255.0
+  ipv6 address FE80::17 link-local
+  ipv6 address 2001:ABCD:0020:2::2/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/2
+  description "R17 to SW10 (Vlan2)"
+  ip address 10.20.2.3 255.255.255.0
+  ipv6 address FE80::17 link-local
+  ipv6 address 2001:ABCD:0020:2::3/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/1
+  description "R17 to R18"
+  ip address 10.20.10.17 255.255.254.0
+  ipv6 address FE80::17 link-local
+  ipv6 address 2001:ABCD:0020:1718::17/64
+  ipv6 enable
+  no shutdown
+  end
+wr

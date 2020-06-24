@@ -1,0 +1,33 @@
+en
+conf t
+hostname SW9
+no ip domain-lookup
+vtp mode transparent
+banner motd #Enter to SW9 settings#
+ipv6 unicast-routing
+
+vlan 2,3,999
+
+int vlan 2
+no shutdown
+
+int vlan 3
+no shutdown
+
+int vlan 999
+ip address 1.1.2.9 255.252.0.0
+ipv6 address FD00::9/8
+ipv6 enable
+no shutdown
+
+int e0/2
+switchport access vlan 2
+no shutdown
+
+int range e0/3, e1/0
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 2,3,999
+no shutdown
+end
+wr

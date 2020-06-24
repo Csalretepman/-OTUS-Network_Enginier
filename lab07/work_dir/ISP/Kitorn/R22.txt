@@ -1,0 +1,32 @@
+en
+conf t
+hostname R22
+no ip domain-lookup
+
+ipv6 unicast-routing
+
+interface Ethernet0/0
+  description "R22 to R14"
+  ip address 100.10.10.10 255.255.255.224
+  ipv6 address FE80::22 link-local
+  ipv6 address 2001:ABCD:0010:1422::22/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/1
+  description "R22 to R21"
+  ip address 100.10.10.20 255.255.255.248
+  ipv6 address FE80::22 link-local
+  ipv6 address 2001:ABCD:0060:2122::22/64
+  ipv6 enable
+  no shutdown
+  exit
+interface Ethernet0/2
+  description "R22 to R23"
+  ip address 100.10.10.11 255.255.255.248
+  ipv6 address FE80::22 link-local
+  ipv6 address 2001:ABCD:0070:2223::22/64
+  ipv6 enable
+  no shutdown
+  end
+wr
