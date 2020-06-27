@@ -31,7 +31,7 @@ interface Ethernet0/2
   exit
 interface Ethernet0/3
   description "R26 to R18"
-  ip address 100.10.10.205 255.255.255.224
+  ip address 200.20.20.26 255.255.255.224
   ipv6 address FE80::26 link-local
   ipv6 address 2001:ABCD:0020:1826::26/64
   ipv6 enable
