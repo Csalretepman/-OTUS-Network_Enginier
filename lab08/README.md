@@ -1,7 +1,7 @@
 
 # Лабораторная работа №8. PBR
 
-![TOP](/TOP.JPG)
+![TOP](https://raw.githubusercontent.com/Csalretepman/-OTUS-Network_Enginier/master/lab08/TOP.JPG)
 
 ### 1. Настроить политику маршрутизации для сетей офиса
 
@@ -31,8 +31,7 @@ ip 2001:ABCD:0030:4::31/64 2001:ABCD:0030:4::1
 
 <details>
  <summary>Ping</summary>
-
-![ping_vpc31](/ping_vpc31.JPG)
+![ping_vpc31](https://raw.githubusercontent.com/Csalretepman/-OTUS-Network_Enginier/master/lab08/ping_vpc31.JPG)
 </details>
 
 
@@ -198,4 +197,4 @@ conf t
  
 ```
 
-![R27(sh_ip_route_stat)](/R27(sh_ip_route_stat).JPG)
+![R27(sh_ip_route_stat)](https://raw.githubusercontent.com/Csalretepman/-OTUS-Network_Enginier/master/lab08/R27(sh_ip_route_stat).JPG)
