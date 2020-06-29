@@ -28,7 +28,7 @@ interface Ethernet0/0
  switchport trunk encapsulation dot1q
  switchport mode trunk
  no shutdown
-!
+
 interface Ethernet0/1
  switchport trunk allowed vlan 2,3,999
  switchport trunk encapsulation dot1q
@@ -36,3 +36,4 @@ interface Ethernet0/1
  no shutdown
 end
 wr
+

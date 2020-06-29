@@ -38,4 +38,3 @@ interface Ethernet0/3
   no shutdown
   end
 wr
-
