@@ -1,0 +1,15 @@
+en
+conf t
+int e1/0
+  description "R15 to R14 (ospf area 0)"
+  ip address 10.1.10.15 255.255.255.0
+  ipv6 address FE80::15 link-local
+  ipv6 address 2001:ABCD:0010:1415::15/64
+  ipv6 enable
+  no shutdown
+  end
+
+conf t
+router ospf 1
+ network 10.1.10.0 0.0.0.255 area 0
+exit
