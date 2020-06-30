@@ -82,6 +82,7 @@ R12 и R13 добавим в зону 10
 <details>
  <summary>R12</summary>
 
+``` bash
 en
 conf t
 router ospf 1
@@ -100,7 +101,7 @@ router ospf 1
 <details>
  <summary>R13</summary>
 
-​``` bash
+``` bash
 
 en
 conf t
