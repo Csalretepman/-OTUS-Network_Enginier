@@ -119,6 +119,7 @@ int e1/0
  ipv6 ospf 1 area 0
  exit
 
+#запрет получения маршрута до 101 на R20
 ipv6 prefix-list R20_102_v6 deny 2001:ABCD:0010:1419::/64 le 128
 ipv6 prefix-list R20_102_v6 permit ::0/0 le 128
 end
@@ -237,7 +238,8 @@ OI  2001:ABCD:10:1315::/64 [110/20]
      via FE80::15, Ethernet0/0
 OI  2001:ABCD:10:1415::/64 [110/20]
      via FE80::15, Ethernet0/0
-     
+ 
+ Маршрута до 101 зоны(2001:ABCD:0010:1419::/64) оспф нет
+ 
 ```
-
-
+ 
