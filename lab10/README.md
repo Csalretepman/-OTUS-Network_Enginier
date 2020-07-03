@@ -196,6 +196,7 @@ OI  ::/0 [110/11]
      via FE80::14, Ethernet0/0
  
 ```
+</details>
 
 <details>
  <summary>R20</summary>
