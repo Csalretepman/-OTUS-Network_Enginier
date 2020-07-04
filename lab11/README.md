@@ -1,6 +1,6 @@
 # Лабораторная работа №11. Основы BGP.
 
-![TOP](C:\Users\Csalretepman\Documents\GitHub\-OTUS-Network_Enginier\lab11\TOP.jpg)
+![TOP](TOP.jpg)
 
 
 ### 1. Настроить eBGP между офисом Москва и провайдерами Киторн и Ламас
