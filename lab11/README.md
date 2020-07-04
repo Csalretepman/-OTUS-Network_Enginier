@@ -112,8 +112,6 @@ address-family ipv6
 </details>
 
 ### 2. eBGP между Киторн и Ламас
-.
-
 <details>
  <summary>R21</summary>
 
@@ -165,8 +163,6 @@ wr mem
 </details>
 
 ### 3. Настроить eBGP между Ламас и Триада
-
-Настроим eBGP между маршрутизаторами R21-R24.
 
 <details>
  <summary>R21</summary>
@@ -222,7 +218,7 @@ wr mem
 
 ### 4. eBGP между офисом С.-Петербург и провайдером Триада
 
-Настроим eBGP между R18-R24 и R18-R26
+R18-R24 и R18-R26
 
 <details>
  <summary>R18</summary>
