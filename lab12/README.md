@@ -1302,7 +1302,9 @@ router bgp 2042
 </details>
 <details>
  <summary>R32#</summary>
+    
 ![r32_ping_lo20](r32_ping_lo20.jpg)
+    
 
  </details>
 
