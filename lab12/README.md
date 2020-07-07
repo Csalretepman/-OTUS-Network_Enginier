@@ -1301,10 +1301,12 @@ router bgp 2042
 
 </details>
 <details>
- <summary>R32#</summary>
-    
+ <summary>R32#ping</summary>
+
+
 ![r32_ping_lo20](r32_ping_lo20.jpg)
-    
+
+
 
  </details>
 
