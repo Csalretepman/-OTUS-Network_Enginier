@@ -5,7 +5,7 @@ ip prefix-list DEF_AND_SPB permit 200.20.20.0/26
 ip prefix-list DEF_AND_SPB deny 0.0.0.0/0 ge 32
 ipv6 prefix-list DEF_AND_SPB permit 2001:abcd:10:1521::/64
 ipv6 prefix-list DEF_AND_SPB permit 2001:abcd:20:1824::/64
-ipv6 prefix-list DEF_AND_SPB permit 2001:abcd:10:1526::/64
+ipv6 prefix-list DEF_AND_SPB permit 2001:abcd:20:1826::/64
 ipv6 prefix-list DEF_AND_SPB deny ::/0 ge 128
 
 router bgp 301
