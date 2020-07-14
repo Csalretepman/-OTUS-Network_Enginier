@@ -182,10 +182,18 @@ int e0/2
 conf t
 router bgp 520
  bgp router-id 1.1.70.23
+ redist ospf 1
+ bgp cluster-id 1
  
  #eBGP_R22_Kitorn
  network 100.10.10.64 mask 255.255.255.224
  neighbor 100.10.10.70 remote-as 101
+ neighbor 2001:ABCD:0050:2223::22 remote-as 101
+ address-family ipv4
+ neighbor 100.10.10.70 activate
+ address-family ipv6
+ neighbor 2001:ABCD:0050:2223::22 activate
+
  #iBGP
  network 100.0.70.0 mask 255.255.255.0
  neighbor 100.0.70.24 remote-as 520
@@ -196,9 +204,12 @@ router bgp 520
  neighbor 100.0.70.25 remote-as 520
  neighbor 100.0.70.25 update-source Loopback70
  neighbor 100.0.70.25 next-hop-self
- #eBGP_R22_Kitorn
- neighbor 2001:ABCD:0050:2223::22 remote-as 101
- #iBGP
+ neighbor 100.0.70.25 route-reflector-client
+
+ neighbor 100.0.70.26 remote-as 520
+ neighbor 100.0.70.26 update-source Loopback70
+ neighbor 100.0.70.26 next-hop-self
+ 
  neighbor FC00::70:24 remote-as 520
  neighbor FC00::70:24 update-source Loopback70
  neighbor FC00::70:24 next-hop-self
@@ -207,18 +218,24 @@ router bgp 520
  neighbor FC00::70:25 remote-as 520
  neighbor FC00::70:25 update-source Loopback70
  neighbor FC00::70:25 next-hop-self
+ neighbor FC00::70:25 route-reflector-client
+
+ neighbor FC00::70:26 remote-as 520
+ neighbor FC00::70:26 update-source Loopback70
+ neighbor FC00::70:26 next-hop-self
 
  address-family ipv4
- neighbor 100.10.10.70 activate
  neighbor 100.0.70.24 activate
  neighbor 100.0.70.25 activate
+ neighbor 100.0.70.26 activate
  no neighbor FC00::70:24 activate
  no neighbor FC00::70:25 activate
+ no neighbor FC00::70:26 activate
 
  address-family ipv6
- neighbor 2001:ABCD:0050:2223::22 activate
  neighbor FC00::70:24 activate
  neighbor FC00::70:25 activate
+ neighbor FC00::70:26 activate
  end
 wr mem
 
@@ -267,16 +284,49 @@ int e0/2
  ipv6 ospf 1 area 0
  end
 
-# iBGP
+#BGP
 conf t
 router bgp 520
  bgp router-id 1.1.70.24
- bgp cluster-id1
+ redist ospf 1
+
+#eBGP_R21_Lamas
+ network 100.10.10.96 mask 255.255.255.224
+ neighbor 100.10.10.100 remote-as 301
+
+ neighbor 2001:ABCD:0060:2124::21 remote-as 301
+
+ address-family ipv4
+ neighbor 100.10.10.100 activate
+ no neighbor 2001:ABCD:0060:2124::21 activate
+
+ address-family ipv6
+ neighbor 2001:ABCD:0060:2124::21 activate
+ exit
+
+#eBGP_R18_Spb
+ network 200.20.20.0 mask 255.255.255.224
+ neighbor 200.20.20.20 remote-as 2042
+ 
+ neighbor 2001:ABCD:0020:1824::18 remote-as 2042
+
+ address-family ipv4
+ neighbor 200.20.20.20 activate
+ no neighbor 2001:ABCD:0020:1824::18 activate
+
+ address-family ipv6
+ neighbor 2001:ABCD:0020:1824::18 activate
+ exit
+
+#iBGP
  network 100.0.70.0 mask 255.255.255.0
  neighbor 100.0.70.23 remote-as 520
  neighbor 100.0.70.23 update-source Loopback70
  neighbor 100.0.70.23 next-hop-self
- neighbor 100.0.70.23 route-reflector-client
+
+ neighbor 100.0.70.25 remote-as 520
+ neighbor 100.0.70.25 update-source Loopback70
+ neighbor 100.0.70.25 next-hop-self
 
  neighbor 100.0.70.26 remote-as 520
  neighbor 100.0.70.26 update-source Loopback70
@@ -285,7 +335,10 @@ router bgp 520
  neighbor FC00::70:23 remote-as 520
  neighbor FC00::70:23 update-source Loopback70
  neighbor FC00::70:23 next-hop-self
- neighbor FC00::70:23 route-reflector-client
+
+ neighbor FC00::70:25 remote-as 520
+ neighbor FC00::70:25 update-source Loopback70
+ neighbor FC00::70:25 next-hop-self
 
  neighbor FC00::70:26 remote-as 520
  neighbor FC00::70:26 update-source Loopback70
@@ -293,32 +346,16 @@ router bgp 520
  
  address-family ipv4
  neighbor 100.0.70.23 activate
+ neighbor 100.0.70.25 activate
  neighbor 100.0.70.26 activate
  no neighbor FC00::70:23 activate
+ no neighbor FC00::70:25 activate
  no neighbor FC00::70:26 activate
 
  address-family ipv6
  neighbor FC00::70:23 activate
+ neighbor FC00::70:25 activate
  neighbor FC00::70:26 activate
- no neighbor 100.0.70.23 activate
- no neighbor 100.0.70.26 activate
- end
-conf t
-router bgp 520
-#eBGP_R21_Lamas
- network 100.10.10.96 mask 255.255.255.224
- neighbor 100.10.10.100 remote-as 301
-
-#eBGP_R21_Lamas
- neighbor 2001:ABCD:0060:2124::21 remote-as 301
-
-#eBGP_R21_Lamas
- address-family ipv4
- neighbor 100.10.10.100 activate
-
-#eBGP_R21_Lamas
- address-family ipv6
- neighbor 2001:ABCD:0060:2124::21 activate
  end
 wr mem
 
@@ -369,13 +406,17 @@ int e0/2
 # iBGP
 conf t
 router bgp 520
- bgp router-id 1.1.70.25
- bgp cluster-id 1
+bgp router-id 1.1.70.25
+redist connected
+redist ospf 1
  network 100.0.70.0 mask 255.255.255.0
  neighbor 100.0.70.23 remote-as 520
  neighbor 100.0.70.23 update-source Loopback70
  neighbor 100.0.70.23 next-hop-self
- neighbor 100.0.70.23 route-reflector-client
+
+ neighbor 100.0.70.24 remote-as 520
+ neighbor 100.0.70.24 update-source Loopback70
+ neighbor 100.0.70.24 next-hop-self
 
  neighbor 100.0.70.26 remote-as 520
  neighbor 100.0.70.26 update-source Loopback70
@@ -384,7 +425,10 @@ router bgp 520
  neighbor FC00::70:23 remote-as 520
  neighbor FC00::70:23 update-source Loopback70
  neighbor FC00::70:23 next-hop-self
- neighbor FC00::70:23 route-reflector-client
+
+ neighbor FC00::70:24 remote-as 520
+ neighbor FC00::70:24 update-source Loopback70
+ neighbor FC00::70:24 next-hop-self
 
  neighbor FC00::70:26 remote-as 520
  neighbor FC00::70:26 update-source Loopback70
@@ -392,15 +436,16 @@ router bgp 520
  
  address-family ipv4
  neighbor 100.0.70.23 activate
+ neighbor 100.0.70.24 activate
  neighbor 100.0.70.26 activate
  no neighbor FC00::70:23 activate
+ no neighbor FC00::70:24 activate
  no neighbor FC00::70:26 activate
 
  address-family ipv6
  neighbor FC00::70:23 activate
+ neighbor FC00::70:24 activate
  neighbor FC00::70:26 activate
- no neighbor 100.0.70.23 activate
- no neighbor 100.0.70.26 activate
  end
 wr mem
 
@@ -448,11 +493,29 @@ int e0/2
  ipv6 ospf 1 area 0
  end
  
-# iBGP
+#BGP
 conf t
 router bgp 520
  bgp router-id 1.1.70.26
  bgp cluster-id 1
+ redist connected
+ redist ospf 1
+
+#eBGP_R18_Spb
+ network 200.20.20.32 mask 255.255.255.224
+ neighbor 200.20.20.35 remote-as 2042
+ 
+ neighbor 2001:ABCD:0020:1826::18 remote-as 2042
+
+ address-family ipv4
+ neighbor 200.20.20.35 activate
+ no neighbor 2001:ABCD:0020:1826::18 activate
+
+ address-family ipv6
+ neighbor 2001:ABCD:0020:1826::18 activate
+ exit
+
+  #iBGP
  network 100.0.70.0 mask 255.255.255.0
  neighbor 100.0.70.24 remote-as 520
  neighbor 100.0.70.24 update-source Loopback70
@@ -462,7 +525,12 @@ router bgp 520
  neighbor 100.0.70.25 remote-as 520
  neighbor 100.0.70.25 update-source Loopback70
  neighbor 100.0.70.25 next-hop-self
+ neighbor 100.0.70.25 route-reflector-client
 
+ neighbor 100.0.70.23 remote-as 520
+ neighbor 100.0.70.23 update-source Loopback70
+ neighbor 100.0.70.23 next-hop-self
+ 
  neighbor FC00::70:24 remote-as 520
  neighbor FC00::70:24 update-source Loopback70
  neighbor FC00::70:24 next-hop-self
@@ -471,18 +539,24 @@ router bgp 520
  neighbor FC00::70:25 remote-as 520
  neighbor FC00::70:25 update-source Loopback70
  neighbor FC00::70:25 next-hop-self
+ neighbor FC00::70:25 route-reflector-client
+
+ neighbor FC00::70:23 remote-as 520
+ neighbor FC00::70:23 update-source Loopback70
+ neighbor FC00::70:23 next-hop-self
 
  address-family ipv4
  neighbor 100.0.70.24 activate
  neighbor 100.0.70.25 activate
+ neighbor 100.0.70.23 activate
  no neighbor FC00::70:24 activate
  no neighbor FC00::70:25 activate
+ no neighbor FC00::70:23 activate
 
  address-family ipv6
  neighbor FC00::70:24 activate
  neighbor FC00::70:25 activate
- no neighbor 100.0.70.24 activate
- no neighbor 100.0.70.25 activate
+ neighbor FC00::70:23 activate
  end
 wr mem
 
