@@ -159,6 +159,7 @@ wr mem
 
 </details>
 
+Также, можно было настроить [при помощи  prefix-list'а](/!21.txt)
 
 <details>
  <summary>R14#sh bgp all</summary>
