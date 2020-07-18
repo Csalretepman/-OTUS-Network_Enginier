@@ -339,6 +339,7 @@ int e0/0.999
  ipv6 enable
  ntp broadcast
  no shut
+
 </details>
 
 
