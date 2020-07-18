@@ -345,6 +345,8 @@ int e0/0.999
 </details>
 
 
+
+
 <details>
  <summary>R13</summary>
 
@@ -366,6 +368,8 @@ int e0/0.999
  ntp broadcast
  no shut
 
+```
+</details>
 
 
 Настройка NTP клиентов
