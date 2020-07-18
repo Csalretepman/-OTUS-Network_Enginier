@@ -350,8 +350,6 @@ int e0/0.999
 <details>
  <summary>R13</summary>
 
-​``` bash
-
 conf t
 
 ntp master 2
@@ -368,7 +366,6 @@ int e0/0.999
  ntp broadcast
  no shut
 
-```
 </details>
 
 
