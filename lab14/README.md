@@ -366,8 +366,7 @@ int e0/0.999
  ntp broadcast
  no shut
 
-```
-</details>
+
 
 Настройка NTP клиентов
 
@@ -406,7 +405,7 @@ wr mem
 
 ![r19_ntp_clock](r19_ntp_clock.jpg)
 
-![sw4_ntp_clock](C:\Users\Csalretepman\Documents\GitHub\-OTUS-Network_Enginier\lab14\sw4_ntp_clock.jpg)
+![sw4_ntp_clock](sw4_ntp_clock.jpg)
 
 ![vpc_dhcp](vpc_dhcp.JPG)
 
