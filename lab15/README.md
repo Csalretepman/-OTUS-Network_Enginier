@@ -143,6 +143,7 @@ int tun6
   ipv6 address FE80::14 link-local
   ipv6 address FD00:DD::14/32
   ipv6 nhrp auth 1
+  ipv6 nhrp network-id 1
   ipv6 nhrp map multicast dynamic
   ipv6 nhrp redirect
   tunnel mode gre multipoint ipv6
@@ -179,6 +180,7 @@ int tun6
   ipv6 address FE80::27 link-local
   ipv6 address FD00:DD::27/32
   ipv6 nhrp auth 1
+  ipv6 nhrp network-id 1
   ipv6 nhrp nhs FD00:DD::14
   ipv6 nhrp map multicast 2001:ABCD:0010:1422::14
   ipv6 nhrp shortcut
@@ -217,6 +219,7 @@ int tun6
   ipv6 address FE80::28 link-local
   ipv6 address FD00:DD::28/32
   ipv6 nhrp auth 1
+  ipv6 nhrp network-id 1
   ipv6 nhrp nhs FD00:DD::14
   ip nhrp map 172.20.20.14 100.10.10.14
   ipv6 nhrp map multicast 2001:ABCD:0010:1422::14
