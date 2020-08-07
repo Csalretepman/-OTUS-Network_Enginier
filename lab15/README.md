@@ -43,13 +43,13 @@ wr mem
 ``` bash
 
 conf t
-int tun180
+int tun18
   ip addr 172.20.1.15 255.255.255.252
   tunnel source 100.11.11.15
   tunnel destination 200.20.20.35
   no shut
 
-  int tun18006
+  int tun1806
   ipv6 enable
   ipv6 address FE80::15 link-local
   ipv6 address FD00::1815/127
@@ -69,13 +69,13 @@ wr mem
 ``` bash
 
 conf t
-int tun18
+int tun14
   ip addr 172.20.0.18 255.255.255.252
   tunnel source 200.20.20.20
   tunnel destination 100.10.10.14
   no shut
 
-  int tun1806
+  int tun1406
   ipv6 enable
   ipv6 address FE80::18 link-local
   ipv6 address FD00::1418/128
@@ -84,13 +84,13 @@ int tun18
   tunnel mode gre ipv6
   no shut
 
-int tun180
+int tun15
   ip addr 172.20.1.18 255.255.255.252
   tunnel source 200.20.20.35
   tunnel destination 100.11.11.15
   no shut
 
-  int tun18006
+  int tun1506
   ipv6 enable
   ipv6 address FE80::18 link-local
   ipv6 address FD00::1518/128
@@ -107,18 +107,26 @@ wr mem
 
 ### 2. Настроить DMVPN между Москва и Чокурдах, Лабытнанги
 
+Будет 2 канала, с хабами на R14 & R15
 
 Для DMVPN туннеля будем использовать подсеть 172.20.20.0/24, для ipv6 - fd00:dd::/32
 
 В качестве HUB'a выступит R14, R27 && R28 будут споками соответственно
 
+На основном канале (хаб R14):
 ipv4 - 172.20.20.X - где X - номер настраиваемого роутера
-ipv6 - FD00:DD::Y - где Y - номер настраиваемого маршрутизатора
+ipv6 - FD00:DD::14Y - где Y - номер настраиваемого маршрутизатора
 
-Туннельный интерфейс для ipv4 будет 4 (int tun4)
-Туннельный интерфейс для ipv6 будет 6 (int tun4)
+На резервном (хаб R15):
+ipv4 - 172.20.20.1X - где X - номер настраиваемого роутера
+ipv6 - FD00:DD::15Y - где Y - номер настраиваемого маршрутизатора
+
+Туннельный интерфейс для ipv4 будет привязан к каналу и будет иметь вид 4x, где х - номер маршрутизатора хаба (414, 415)
+Туннельный интерфейс для ipv6 будет 6x (614, 615)
 
 Будем использовать 3 режим DMVPN (phase 3)
+
+Настройка основного канала: 
 
 <details>
  <summary>R14</summary>
@@ -126,7 +134,7 @@ ipv6 - FD00:DD::Y - где Y - номер настраиваемого марш�
  ``` bash
 
 conf t
-int tun4
+int tun414
   desc "DMVPN_ipv4_(hub)"
   ip addr 172.20.20.14 255.255.255.0
   ip nhrp auth 1
@@ -137,11 +145,11 @@ int tun4
   tunnel mode gre multipoint
   no shut
 
-int tun6
+int tun614
   desc "DMVPN_ipv6_(hub)"
   ipv6 enable
   ipv6 address FE80::14 link-local
-  ipv6 address FD00:DD::14/32
+  ipv6 address FD00:DD::1414/32
   ipv6 nhrp auth 1
   ipv6 nhrp network-id 1
   ipv6 nhrp map multicast dynamic
@@ -149,6 +157,8 @@ int tun6
   tunnel mode gre multipoint ipv6
   tunnel source Ethernet0/2
   no shut
+  end
+ wr mem
 
 
  ```
@@ -160,7 +170,7 @@ int tun6
  ``` bash
 
 conf t
-int tun4
+int tun414
   desc "DMVPN_ipv4_(spoke)"
   ip addr 172.20.20.27 255.255.255.0
   ip nhrp auth 1
@@ -174,20 +184,22 @@ int tun4
   tunnel source Ethernet0/0
   no shut
 
-int tun6
+int tun614
   desc "DMVPN_ipv6_(spoke)"
   ipv6 enable
   ipv6 address FE80::27 link-local
-  ipv6 address FD00:DD::27/32
+  ipv6 address FD00:DD::1427/32
   ipv6 nhrp auth 1
   ipv6 nhrp network-id 1
-  ipv6 nhrp nhs FD00:DD::14
+  ipv6 nhrp nhs FD00:DD::1414
   ipv6 nhrp map multicast 2001:ABCD:0010:1422::14
   ipv6 nhrp shortcut
   ipv6 nhrp redirect
   tunnel mode gre multipoint ipv6
   tunnel source Ethernet0/0
   no shut
+  end
+ wr mem
 
  ```
 </details>
@@ -199,7 +211,7 @@ int tun6
  ``` bash
 
 conf t
-int tun4
+int tun414
   desc "DMVPN_ipv4_(spoke)"
   ip addr 172.20.20.28 255.255.255.0
   ip nhrp auth 1
@@ -213,14 +225,14 @@ int tun4
   tunnel source Ethernet0/0
   no shut
 
-int tun6
+int tun614
   desc "DMVPN_ipv6_(spoke)"
   ipv6 enable
   ipv6 address FE80::28 link-local
-  ipv6 address FD00:DD::28/32
+  ipv6 address FD00:DD::1428/32
   ipv6 nhrp auth 1
   ipv6 nhrp network-id 1
-  ipv6 nhrp nhs FD00:DD::14
+  ipv6 nhrp nhs FD00:DD::1414
   ip nhrp map 172.20.20.14 100.10.10.14
   ipv6 nhrp map multicast 2001:ABCD:0010:1422::14
   ip nhrp map multicast 100.10.10.14
@@ -229,6 +241,129 @@ int tun6
   tunnel mode gre multipoint ipv6
   tunnel source Ethernet0/0
   no shut
+  end
+ wr mem
+
+ ```
+</details>
+
+Настройка резервного канала: 
+
+<details>
+ <summary>R15</summary>
+
+ ``` bash
+
+conf t
+int tun415
+  desc "DMVPN_ipv4_(hub)"
+  ip addr 172.20.20.115 255.255.255.0
+  ip nhrp auth 1
+  ip nhrp network-id 2
+  ip nhrp map multicast dynamic
+  ip nhrp redirect
+  tunnel source Ethernet0/2
+  tunnel mode gre multipoint
+  no shut
+
+int tun615
+  desc "DMVPN_ipv6_(hub)"
+  ipv6 enable
+  ipv6 address FE80::15 link-local
+  ipv6 address FD00:DD::1515/32
+  ipv6 nhrp auth 1
+  ipv6 nhrp network-id 2
+  ipv6 nhrp map multicast dynamic
+  ipv6 nhrp redirect
+  tunnel mode gre multipoint ipv6
+  tunnel source Ethernet0/2
+  no shut
+  end
+ wr mem
+
+
+ ```
+</details>
+
+<details>
+ <summary>R27</summary>
+
+ ``` bash
+
+conf t
+int tun415
+  desc "DMVPN_ipv4_(spoke)"
+  ip addr 172.20.20.127 255.255.255.0
+  ip nhrp auth 1
+  ip nhrp network-id 2
+  ip nhrp nhs 172.20.20.115
+  ip nhrp map 172.20.20.115 100.11.11.15
+  ip nhrp map multicast 100.11.11.15
+  ip nhrp shortcut
+  ip nhrp redirect
+  tunnel mode gre multipoint
+  tunnel source Ethernet0/0
+  no shut
+
+int tun615
+  desc "DMVPN_ipv6_(spoke)"
+  ipv6 enable
+  ipv6 address FE80::27 link-local
+  ipv6 address FD00:DD::1527/32
+  ipv6 nhrp auth 1
+  ipv6 nhrp network-id 2
+  ipv6 nhrp nhs FD00:DD::1515
+  ipv6 nhrp map multicast 2001:ABCD:0010:1521::15
+  ipv6 nhrp shortcut
+  ipv6 nhrp redirect
+  tunnel mode gre multipoint ipv6
+  tunnel source Ethernet0/0
+  no shut
+  end
+ wr mem
+
+ ```
+</details>
+
+
+<details>
+ <summary>R28</summary>
+
+ ``` bash
+
+conf t
+int tun415
+  desc "DMVPN_ipv4_(spoke)"
+  ip addr 172.20.20.128 255.255.255.0
+  ip nhrp auth 1
+  ip nhrp network-id 2
+  ip nhrp nhs 172.20.20.15
+  ip nhrp map 172.20.20.15 100.11.11.15
+  ip nhrp map multicast 100.11.11.15
+  ip nhrp shortcut
+  ip nhrp redirect
+  tunnel mode gre multipoint
+  tunnel source Ethernet0/0
+  no shut
+
+int tun615
+  desc "DMVPN_ipv6_(spoke)"
+  ipv6 enable
+  ipv6 address FE80::28 link-local
+  ipv6 address FD00:DD::1528/32
+  ipv6 nhrp auth 1
+  ipv6 nhrp network-id 2
+  ipv6 nhrp nhs FD00:DD::1515
+  ip nhrp map 172.20.20.115 100.11.11.15
+  ipv6 nhrp map multicast 2001:ABCD:0010:1521::15
+  ip nhrp map multicast 100.11.11.15
+  ipv6 nhrp shortcut
+  ipv6 nhrp redirect
+  tunnel mode gre multipoint ipv6
+  tunnel source Ethernet0/0
+  no shut
+  end
+ wr mem
 
  ```
 </details>
@@ -238,5 +373,5 @@ int tun6
  <summary>R14#ping</summary>
 
 ![ping](ping.jpg)
- 
+
 </details>
