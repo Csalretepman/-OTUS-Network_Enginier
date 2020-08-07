@@ -37,6 +37,8 @@ wr mem
 </details>
 
 
+del
+
 <details>
  <summary>R15</summary>
 
