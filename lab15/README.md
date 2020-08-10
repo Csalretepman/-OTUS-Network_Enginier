@@ -286,11 +286,11 @@ int tun415
 
 ![ping](ping.jpg)
 
-
-
-</details>![r14](r14.JPG)
+![r14](r14.JPG)
 
 ![R28](R28.JPG)
+
+</details>
 
 <details>
  <summary>P.s.</summary>
