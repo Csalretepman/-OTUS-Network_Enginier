@@ -36,9 +36,6 @@ wr mem
 ```
 </details>
 
-
-del
-
 <details>
  <summary>R15</summary>
 
@@ -120,7 +117,7 @@ ipv4 - 172.20.20.X - где X - номер настраиваемого роут
 ipv6 - FD00:DD::14Y - где Y - номер настраиваемого маршрутизатора
 
 На резервном (хаб R15):
-ipv4 - 172.20.20.1X - где X - номер настраиваемого роутера
+ipv4 - 172.20.20.2X - где X - номер настраиваемого роутера
 ipv6 - FD00:DD::15Y - где Y - номер настраиваемого маршрутизатора
 
 Туннельный интерфейс для ipv4 будет привязан к каналу и будет иметь вид 4x, где х - номер маршрутизатора хаба (414, 415)
@@ -138,26 +135,13 @@ ipv6 - FD00:DD::15Y - где Y - номер настраиваемого мар�
 conf t
 int tun414
   desc "DMVPN_ipv4_(hub)"
-  ip addr 172.20.20.14 255.255.255.0
+  ip addr 172.20.20.14 255.255.255.192
   ip nhrp auth 1
   ip nhrp network-id 1
   ip nhrp map multicast dynamic
   ip nhrp redirect
   tunnel source Ethernet0/2
   tunnel mode gre multipoint
-  no shut
-
-int tun614
-  desc "DMVPN_ipv6_(hub)"
-  ipv6 enable
-  ipv6 address FE80::14 link-local
-  ipv6 address FD00:DD::1414/32
-  ipv6 nhrp auth 1
-  ipv6 nhrp network-id 1
-  ipv6 nhrp map multicast dynamic
-  ipv6 nhrp redirect
-  tunnel mode gre multipoint ipv6
-  tunnel source Ethernet0/2
   no shut
   end
  wr mem
@@ -174,7 +158,7 @@ int tun614
 conf t
 int tun414
   desc "DMVPN_ipv4_(spoke)"
-  ip addr 172.20.20.27 255.255.255.0
+  ip addr 172.20.20.27 255.255.255.192
   ip nhrp auth 1
   ip nhrp network-id 1
   ip nhrp nhs 172.20.20.14
@@ -183,22 +167,9 @@ int tun414
   ip nhrp shortcut
   ip nhrp redirect
   tunnel mode gre multipoint
-  tunnel source Ethernet0/0
-  no shut
-
-int tun614
-  desc "DMVPN_ipv6_(spoke)"
-  ipv6 enable
-  ipv6 address FE80::27 link-local
-  ipv6 address FD00:DD::1427/32
-  ipv6 nhrp auth 1
-  ipv6 nhrp network-id 1
-  ipv6 nhrp nhs FD00:DD::1414
-  ipv6 nhrp map multicast 2001:ABCD:0010:1422::14
-  ipv6 nhrp shortcut
-  ipv6 nhrp redirect
-  tunnel mode gre multipoint ipv6
-  tunnel source Ethernet0/0
+  tunnel source e0/0
+  ip ospf priority 0
+  ipv6 ospf priority 0
   no shut
   end
  wr mem
@@ -215,7 +186,7 @@ int tun614
 conf t
 int tun414
   desc "DMVPN_ipv4_(spoke)"
-  ip addr 172.20.20.28 255.255.255.0
+  ip addr 172.20.20.28 255.255.255.192
   ip nhrp auth 1
   ip nhrp network-id 1
   ip nhrp nhs 172.20.20.14
@@ -224,23 +195,6 @@ int tun414
   ip nhrp shortcut
   ip nhrp redirect
   tunnel mode gre multipoint
-  tunnel source Ethernet0/0
-  no shut
-
-int tun614
-  desc "DMVPN_ipv6_(spoke)"
-  ipv6 enable
-  ipv6 address FE80::28 link-local
-  ipv6 address FD00:DD::1428/32
-  ipv6 nhrp auth 1
-  ipv6 nhrp network-id 1
-  ipv6 nhrp nhs FD00:DD::1414
-  ip nhrp map 172.20.20.14 100.10.10.14
-  ipv6 nhrp map multicast 2001:ABCD:0010:1422::14
-  ip nhrp map multicast 100.10.10.14
-  ipv6 nhrp shortcut
-  ipv6 nhrp redirect
-  tunnel mode gre multipoint ipv6
   tunnel source Ethernet0/0
   no shut
   end
@@ -259,26 +213,14 @@ int tun614
 conf t
 int tun415
   desc "DMVPN_ipv4_(hub)"
-  ip addr 172.20.20.115 255.255.255.0
+  ip addr 172.20.20.215 255.255.255.192
   ip nhrp auth 1
   ip nhrp network-id 2
   ip nhrp map multicast dynamic
   ip nhrp redirect
+  ip ospf priority 10
   tunnel source Ethernet0/2
   tunnel mode gre multipoint
-  no shut
-
-int tun615
-  desc "DMVPN_ipv6_(hub)"
-  ipv6 enable
-  ipv6 address FE80::15 link-local
-  ipv6 address FD00:DD::1515/32
-  ipv6 nhrp auth 1
-  ipv6 nhrp network-id 2
-  ipv6 nhrp map multicast dynamic
-  ipv6 nhrp redirect
-  tunnel mode gre multipoint ipv6
-  tunnel source Ethernet0/2
   no shut
   end
  wr mem
@@ -295,31 +237,16 @@ int tun615
 conf t
 int tun415
   desc "DMVPN_ipv4_(spoke)"
-  ip addr 172.20.20.127 255.255.255.0
+  ip addr 172.20.20.227 255.255.255.192
   ip nhrp auth 1
   ip nhrp network-id 2
-  ip nhrp nhs 172.20.20.115
-  ip nhrp map 172.20.20.115 100.11.11.15
+  ip nhrp nhs 172.20.20.215
+  ip nhrp map 172.20.20.215 100.11.11.15
   ip nhrp map multicast 100.11.11.15
   ip nhrp shortcut
   ip nhrp redirect
   tunnel mode gre multipoint
-  tunnel source Ethernet0/0
-  no shut
-
-int tun615
-  desc "DMVPN_ipv6_(spoke)"
-  ipv6 enable
-  ipv6 address FE80::27 link-local
-  ipv6 address FD00:DD::1527/32
-  ipv6 nhrp auth 1
-  ipv6 nhrp network-id 2
-  ipv6 nhrp nhs FD00:DD::1515
-  ipv6 nhrp map multicast 2001:ABCD:0010:1521::15
-  ipv6 nhrp shortcut
-  ipv6 nhrp redirect
-  tunnel mode gre multipoint ipv6
-  tunnel source Ethernet0/0
+  tunnel source e0/0
   no shut
   end
  wr mem
@@ -336,33 +263,16 @@ int tun615
 conf t
 int tun415
   desc "DMVPN_ipv4_(spoke)"
-  ip addr 172.20.20.128 255.255.255.0
+  ip addr 172.20.20.228 255.255.255.192
   ip nhrp auth 1
   ip nhrp network-id 2
-  ip nhrp nhs 172.20.20.15
-  ip nhrp map 172.20.20.15 100.11.11.15
+  ip nhrp nhs 172.20.20.215
+  ip nhrp map 172.20.20.215 100.11.11.15
   ip nhrp map multicast 100.11.11.15
   ip nhrp shortcut
   ip nhrp redirect
   tunnel mode gre multipoint
-  tunnel source Ethernet0/0
-  no shut
-
-int tun615
-  desc "DMVPN_ipv6_(spoke)"
-  ipv6 enable
-  ipv6 address FE80::28 link-local
-  ipv6 address FD00:DD::1528/32
-  ipv6 nhrp auth 1
-  ipv6 nhrp network-id 2
-  ipv6 nhrp nhs FD00:DD::1515
-  ip nhrp map 172.20.20.115 100.11.11.15
-  ipv6 nhrp map multicast 2001:ABCD:0010:1521::15
-  ip nhrp map multicast 100.11.11.15
-  ipv6 nhrp shortcut
-  ipv6 nhrp redirect
-  tunnel mode gre multipoint ipv6
-  tunnel source Ethernet0/0
+  tunnel source Ethernet0/1
   no shut
   end
  wr mem
@@ -372,8 +282,36 @@ int tun615
 
 
 <details>
- <summary>R14#ping</summary>
+ <summary>Скриншоты</summary>
 
 ![ping](ping.jpg)
 
+
+
+</details>![r14](r14.JPG)
+
+![R28](R28.JPG)
+
+<details>
+ <summary>P.s.</summary>
+
+Не смог завезти в OSPF Чокурдах и Лабытнанги (NBMA)
+Прописывал в тоннельном интерфейсе хаба и споков 
+ip ospf network broadcast
+На хабе 
+router ospf 1
+network 172.20.20.0 0.0.0.63 area 0
+На споках
+network 172.20.20.0 0.0.0.63 area 0 (от R14)
+network 172.20.20.192 0.0.0.63 area 0 (от R15)
+network 1.1.40.27 0.0.0.0 area 27
+В результате соседство не устанавливалось
+Также пробовал в тун интерфейсax:
+ip ospf network non-broadcast
+И прописывая вручную соседей на каждом устройстве
+neighbor 172.20.20.27 (в хабе)
+neighbor 172.20.20.14 (в споке)
+Pезультат - отсутствие результата.
+Пришел(ли) к выводу, что проблема в эмуляторе eve-ng
 </details>
+
