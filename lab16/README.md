@@ -84,9 +84,10 @@ wr mem
 </details>
 
 <details>
-
  <summary>R14-R18# sh cry ses</summary>
+ 
 ![r14-r18](r14-r18.JPG)
+
 </details>
 
 ### Настроите DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги
